@@ -2,10 +2,10 @@ package batailleNavale;
 
 public class Coordonnee {
 	
-	/*Une instance de la classe Coordonnee représente une coordonnée dans une grille de bataille
-	navale. Cette classe doit en particulier permettre de réaliser facilement des conversions entre le
-	système de coordonnées utilisé dans la bataille navale, où les colonnes sont notées par des lettres
-	majuscules (de 'A' à 'Z') et les lignes par des nombres (de 1 à 26), et les indices utilisés en Java
+	/*Une instance de la classe Coordonnee représente une coordonnee dans une grille de bataille
+	navale. Cette classe doit en particulier permettre de realiser facilement des conversions entre le
+	systeme de coordonnees utilise dans la bataille navale, où les colonnes sont notées par des lettres
+	majuscules (de 'A' à 'Z') et les lignes par des nombres (de 1 à 26), et les indices utilises en Java
 	(de 0 à 25).*/
 
 	private int ligne;
