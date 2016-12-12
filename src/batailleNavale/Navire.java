@@ -46,19 +46,36 @@ public class Navire {
 			}
 	
 	public boolean touche(Navire n) {
-		if(this.estHorizontal) {
-			for(int i = this.debut.getColonne(); i < this.fin.getColonne(); i++) {
-				if()
-			}
-				
-		}
 		return true;
 	}
-	// public boolean chevauche(Navire n) {}
-	// public boolean recoitTir(Coordonnee c) {}
-	// public boolean estTouche(Coordonnee c) {}
-	// public boolean estTouche() {}
-	// public boolean estCoule() {}
+	
+	public boolean chevauche(Navire n) {
+		return true;
+	}
+	
+	public boolean recoitTir(Coordonnee c) {
+		if(this.contient(c)) {
+			// On agrandit le tableau partiesTouchees
+			// On incrémente nbTouchees
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean estTouche(Coordonnee c) {
+		return(this.recoitTir(c));
+	}
+	
+	public boolean estTouche() {
+		if(nbTouchees > 0)
+			return true;
+		return false;
+	}
+	
+	public boolean estCoule() {
+		// si le tableau partiesTouchees contient autant de valeur que nbTouchees, alors le navire est coulé
+		return true;
+	}
 
 	//// Main pour terster les différentes méthodes	////
 	public static void main(String[] args) {
