@@ -9,8 +9,8 @@
 package batailleNavale;
 
 public class Coordonnee {
-        public int ligne;
-        public int colonne;
+        private int ligne;
+        private int colonne;
 
         /**
          * Une instance de la classe Coordonnee represente une coordonnee dans une
