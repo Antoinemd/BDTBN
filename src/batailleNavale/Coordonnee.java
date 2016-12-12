@@ -25,21 +25,22 @@ public class Coordonnee {
 
                 // Permet d'obtenir une coordonnee de ligne i et de colonne j (indices
                 // Java)
-
-                ligne = this.ligne;
-                colonne = this.colonne;
+        		if (ligne < 1 || colonne < 1 || ligne > 26 || colonne > 26)
+        			throw new IllegalArgumentException("Valeur incorrecte");
+        			// exception si les coordonnees sont incorrectes (incompletes, etc.)
+                this.ligne = ligne;
+                this.colonne = colonne;
         }
 
         public Coordonnee(String s) {
 
                 // Permet d'obtenir une coordonnee d'apres son expression donnee par s
                 // dans le systeme de coordonnees de la bataille navale
-
+            	if (ligne < 1 || colonne < 1 || ligne > 26 || colonne > 26)
+            		throw new IllegalArgumentException("Valeur incorrecte");
+            		// exception si les coordonnees sont incorrectes (incompletes, etc.)
                 this.colonne = Integer.parseInt(s.substring(0, 1));
                 this.ligne = Integer.parseInt(s.substring(1));
-                if (ligne < 0 || colonne < 0 || ligne > 25 || colonne > 25)
-                        throw new IllegalArgumentException("Valeur incorrecte");
-                // exception si les coordonnees sont incorrectes (incompletes, etc.)
         }
 
         public String toString() {
@@ -48,12 +49,36 @@ public class Coordonnee {
                 // la bataille navale (exemple : "C6")
 
                 String s = "";
-                for (int i = 0; i < this.colonne; i++) {
-                        for (int j = 0; j < this.ligne; j++) {
-                                s += this.colonne + ", " + this.ligne + " ";
-                        }
-                        s += " \n";
+                String col = "";
+                switch (this.colonne) {
+                case 1 : col = "A"; break;
+                case 2 : col = "B"; break;
+                case 3 : col = "C"; break;
+                case 4 : col = "D"; break;
+                case 5 : col = "E"; break;
+                case 6 : col = "F"; break;
+                case 7 : col = "G"; break;
+                case 8 : col = "H"; break;
+                case 9 : col = "I"; break;
+                case 10 : col = "J"; break;
+                case 11 : col = "K"; break;
+                case 12 : col = "L"; break;
+                case 13 : col = "M"; break;
+                case 14 : col = "N"; break;
+                case 15 : col = "O"; break;
+                case 16 : col = "P"; break;
+                case 17 : col = "Q"; break;
+                case 18 : col = "R"; break;
+                case 19 : col = "S"; break;
+                case 20 : col = "T"; break;
+                case 21 : col = "U"; break;
+                case 22 : col = "V"; break;
+                case 23 : col = "W"; break;
+                case 24 : col = "X"; break;
+                case 25 : col = "Y"; break;
+                case 26 : col = "Z"; break;
                 }
+                s += col + this.ligne;
                 return s;
         }
 
@@ -71,7 +96,7 @@ public class Coordonnee {
                 return this.colonne;
         }
 
-        public boolean equals(Object obj) {
+        public boolean equals(Object obj) {	// À vérifier !!
 
                 // Retourne true si et seulement si this est equivalent a obj
         		Coordonnee c = (Coordonnee) obj;
@@ -106,7 +131,9 @@ public class Coordonnee {
         }
 
         public static void main(String[] args) {
-                // TODO Auto-generated method stub
+                Coordonnee c = new Coordonnee(26, 3);
+                Coordonnee d = new Coordonnee(25, 5);
+                System.out.println(c.voisine(d));
 
         }
 
