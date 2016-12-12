@@ -13,10 +13,24 @@ public class GrilleNavale {
 	private Coordonnee[] tirsRecus;
 	private int nbTirsRecus;
 	
+	// 3.1 : Constructeurs
 	public GrilleNavale(int taille, int[] taillesNavires) {
-		
+		tailleGrille = taille;
+		// TODO : Prendre en compte la taille des navires
 	}
 	public GrilleNavale(int taille, int nbNavires) {
+		tailleGrille = taille;
+		// TODO : Prendre en compte le nombre de navires
+	}
+	
+	// 3.2 : Méthodes
+	public String toString() {		// Andy : je pars du principe que la grille est carrée
+		String stGrilleNavale = "";
+		for(int i = 0; i < this.tailleGrille; i++) {
+			for(int j = 0; i < this.tailleGrille; i++) {
+				stGrilleNavale += 
+			}
+		}
 		
 	}
 	//public boolean ajouteNavire(Navire n) {}

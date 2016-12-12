@@ -12,11 +12,28 @@ public class Navire {
 	private Coordonnee[] partiesTouchees;
 	private int nbTouchees;
 
-	public Navire(Coordonnee debut, int longueur, boolean estVertical) {}
+	public Navire(Coordonnee debut, int longueur, boolean estVertical) {
+		this.debut = debut;
+		if(estVertical)
+			this.fin = new Coordonnee(this.debut.getLigne() + longueur, this.debut.getColonne());
+		else
+			this.fin = new Coordonnee(this.debut.getLigne(), this.debut.getColonne() + longueur);
+	}
 	
-	// public Coordonnee getDebut() {}
-	// public Coordonnee getFin() {}
-	// public boolean contient(Coordonnee c) {}
+	public Coordonnee getDebut() {
+		return this.debut;
+	}
+	
+	public Coordonnee getFin() {
+		return this.fin;
+	}
+	
+	public boolean contient(Coordonnee c) {
+		for(int i = 0; i < this.fin; i++) {
+			
+		}
+	}
+	
 	// public boolean touche(Navire n) {}
 	// public boolean chevauche(Navire n) {}
 	// public boolean recoitTir(Coordonnee c) {}
