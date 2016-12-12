@@ -74,12 +74,9 @@ public class Coordonnee {
         public boolean equals(Object obj) {
 
                 // Retourne true si et seulement si this est equivalent a obj
-
-//              if (!(obj instanceof Coordonnee))
-//                      return false;
-//              Coordonnee c = (Coordonnee) obj;
-//              if (this.ligne != Coordonnee.ligne || this.colonne != Coordonnee.colonne)
-//                      return false;
+        		Coordonnee c = (Coordonnee) obj;
+        		if(!(obj instanceof Coordonnee) || (this.ligne != c.ligne || this.colonne != c.colonne))
+            	  	return false;
                 return true;
         }
 
@@ -100,18 +97,12 @@ public class Coordonnee {
                 // sur une ligne inferieure ou si elle se trouve sur la meme ligne mais
                 // sur une colonne inferieure
         		
-                if(this.ligne < c.ligne)
+                if((this.ligne < c.ligne) || ((this.ligne == c.ligne) & (this.colonne < c.colonne)))
                 	return -1;
-                else if(this.ligne > c.ligne)
+                else if((this.ligne > c.ligne) || ((this.ligne == c.ligne) &(this.colonne < c.colonne)))
                 	return 1;
-                
-                else if(this.ligne == c.ligne)
-                		if(this.colonne == c.colonne)
-                			return 0;
-                		else if(this.colonne < c.colonne)
-                			return -1;
-                		else
-                			return 1;                
+                else
+                	return 0;                
         }
 
         public static void main(String[] args) {
