@@ -5,7 +5,7 @@ public class GrilleNavale {
 	/* La classe GrilleNavale represente une grille de bataille navale.
 	 * Les attributs navires et nbNavires représentent les navires places sur la grille ainsi que leur nombre.
 	 * L'attribut taille donne la taille de la grille (la grille est de forme carrée). Les tirsRecus et nbTirsRecus referencent les coordonnees où des tirs ont ete effectués ainsi que leur nombre.
-	 * */
+	 */
 	 
 	private Navire[] navires;
 	private int nbNavire;
@@ -13,8 +13,12 @@ public class GrilleNavale {
 	private Coordonnee[] tirsRecus;
 	private int nbTirsRecus;
 	
-	public GrilleNavale(int taille, int[] taillesNavires) {}
-	public GrilleNavale(int taille) {}
+	public GrilleNavale(int taille, int[] taillesNavires) {
+		
+	}
+	public GrilleNavale(int taille, int nbNavires) {
+		
+	}
 	//public boolean ajouteNavire(Navire n) {}
 	public void placementAuto(int[] taillesNavires) {}
 	//private boolean estDansGrille(Coordonnee c) {}
