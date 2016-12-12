@@ -16,11 +16,11 @@ public class Navire {
 	public Navire(Coordonnee debut, int longueur, boolean estVertical) {
 		this.debut = debut;
 		if(estVertical) {
-			this.fin = new Coordonnee(this.debut.getLigne() + longueur, this.debut.getColonne());
+			this.fin = new Coordonnee(this.debut.getLigne() + longueur-1, this.debut.getColonne());
 			this.estHorizontal = false;
 		}
 		else {
-			this.fin = new Coordonnee(this.debut.getLigne(), this.debut.getColonne() + longueur);
+			this.fin = new Coordonnee(this.debut.getLigne(), this.debut.getColonne() + longueur-1);
 			this.estHorizontal = true;
 		}
 	}
