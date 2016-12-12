@@ -18,8 +18,8 @@ public class Navire {
 	// public boolean estTouche() {}
 	// public boolean estCoule() {}
 
+	//// Main pour terster les différentes méthodes	////
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 	}
 

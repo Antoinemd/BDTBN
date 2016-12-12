@@ -20,7 +20,7 @@ public class Coordonnee {
 	// public boolean voisine(Coordonnee c) {}
 	
 	
-	//// Maint pour terster les différentes méthodes	////
+	//// Main pour terster les différentes méthodes	////
 	public static void main(String[] args) {
 		System.out.println("coucou le monde bis !");
 	}
