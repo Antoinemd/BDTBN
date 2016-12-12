@@ -9,8 +9,8 @@
 package batailleNavale;
 
 public class Coordonnee {
-        private int ligne;
-        private int colonne;
+        public int ligne;
+        public int colonne;
 
         /**
          * Une instance de la classe Coordonnee represente une coordonnee dans une
@@ -131,9 +131,9 @@ public class Coordonnee {
         }
 
         public static void main(String[] args) {
-                Coordonnee c = new Coordonnee(26, 3);
-                Coordonnee d = new Coordonnee(25, 5);
-                System.out.println(c.voisine(d));
+                Coordonnee c = new Coordonnee(25, 3);
+                Coordonnee d = new Coordonnee(25, 3);
+                System.out.println(c.equals(d));
 
         }
 

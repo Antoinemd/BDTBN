@@ -11,13 +11,18 @@ public class Navire {
 	private Coordonnee fin;
 	private Coordonnee[] partiesTouchees;
 	private int nbTouchees;
+	private boolean estHorizontal;
 
 	public Navire(Coordonnee debut, int longueur, boolean estVertical) {
 		this.debut = debut;
-		if(estVertical)
+		if(estVertical) {
 			this.fin = new Coordonnee(this.debut.getLigne() + longueur, this.debut.getColonne());
-		else
+			this.estHorizontal = false;
+		}
+		else {
 			this.fin = new Coordonnee(this.debut.getLigne(), this.debut.getColonne() + longueur);
+			this.estHorizontal = true;
+		}
 	}
 	
 	public Coordonnee getDebut() {
@@ -29,12 +34,20 @@ public class Navire {
 	}
 	
 	public boolean contient(Coordonnee c) {
-		for(int i = 0; i < this.fin; i++) {
-			
-		}
-	}
+		if((this.estHorizontal == true) && (this.debut.ligne == c.ligne))	// Navire horizontal, c sur la même ligne que le navire...
+			for(int j = 0; j < this.fin.colonne; j++)
+				if((c.colonne >= this.debut.colonne) && (c.colonne <= this.fin.colonne)) // si c est compris entre le début et la fin du navire...
+					return true;
+		else if((this.estHorizontal == false) && (this.debut.colonne == c.colonne)) // Navire vertical, c sur la même colonne que le navire...
+			for(int i = 0; i < this.fin.ligne; i++)
+				if((c.ligne >= this.debut.ligne) && (c.ligne <= this.debut.ligne)) // si c est compris entre le début et la fin du navire...
+					return true;
+		return false; // if(((this.estHorizontal == true) && (this.debut.ligne != c.ligne)) || ((this.estHorizontal == false) && (this.debut.colonne != c.colonne)))
+			}
 	
-	// public boolean touche(Navire n) {}
+	public boolean touche(Navire n) {
+		
+	}
 	// public boolean chevauche(Navire n) {}
 	// public boolean recoitTir(Coordonnee c) {}
 	// public boolean estTouche(Coordonnee c) {}
