@@ -57,7 +57,13 @@ public class Navire {
 			}
 	
 	public boolean touche(Navire n) {
-		return false;
+		int cACote = Math.abs(this.debut.getLigne() - n.debut.getLigne());		// si = 1, les navires se touchent de colonne à colonne
+		int lACote = Math.abs(this.debut.getColonne() - n.debut.getColonne());	// si = 1, les navires se touchent de ligne à ligne
+		//int cACote = this.debut.getLigne() - n.debut.getLigne();
+		//int lACote = this.debut.getColonne() - n.debut.getColonne();
+		System.out.println(cACote + ", " + lACote);
+		return((cACote <= 1) && (this.fin.getColonne() < n.debut.getColonne()) && (this.debut.getColonne() > n.fin.getColonne())) ||
+				((lACote <= 1) && (this.fin.getLigne() < n.debut.getLigne() && (this.debut.getLigne() > n.fin.getLigne())));
 	}
 	
 	public boolean chevauche(Navire n) {
