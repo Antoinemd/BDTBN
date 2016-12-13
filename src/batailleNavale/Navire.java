@@ -34,7 +34,7 @@ public class Navire {
 	}
 	
 	public boolean contient(Coordonnee c) {
-		if((this.estHorizontal == true) && (this.debut.getLigne() == c.getLigne()))	// Navire horizontal, c sur la même ligne que le navire...
+		/*if((this.estHorizontal == true) && (this.debut.getLigne() == c.getLigne()))	// Navire horizontal, c sur la même ligne que le navire...
 			for(int j = this.debut.getColonne(); j < this.fin.getColonne(); j++) // on parcourt colonne par colonne...
 				if((c.getColonne() >= this.debut.getColonne()) && (c.getColonne() <= this.fin.getColonne())) // si on trouve c...
 					return true;
@@ -42,7 +42,10 @@ public class Navire {
 			for(int i = this.debut.getLigne(); i < this.fin.getLigne(); i++)	// on parcourt alors ligne par ligne...
 				if((c.getLigne() >= this.debut.getLigne()) && (c.getLigne() <= this.debut.getLigne())) // si on trouve c...
 					return true;
-		return false; // if(((this.estHorizontal == true) && (this.debut.ligne != c.ligne)) || ((this.estHorizontal == false) && (this.debut.colonne != c.colonne)))
+		return false; // if(((this.estHorizontal == true) && (this.debut.ligne != c.ligne)) || ((this.estHorizontal == false) && (this.debut.colonne != c.colonne)))*/
+		return((c.getLigne() == this.debut.getLigne()) && ((c.getColonne() >= this.debut.getColonne()) && ((c.getColonne() <= this.fin.getColonne()))) ||
+				((c.getColonne() == this.debut.getColonne()) && ((c.getLigne() >= this.debut.getLigne()) && ((c.getLigne() <= this.fin.getLigne()))) )
+				);
 			}
 	
 	public boolean touche(Navire n) {
@@ -88,7 +91,7 @@ public class Navire {
 	}
 	
 	public boolean estTouche() {
-		if(nbTouchees > 0)
+		if(this.nbTouchees > 0)
 			return true;
 		return false;
 	}

@@ -132,13 +132,13 @@ public class Coordonnee {
 
         public static void main(String[] args) {
                 Coordonnee c = new Coordonnee(5, 3);
-                Coordonnee d = new Coordonnee(5, 4);
+                Coordonnee d = new Coordonnee(6, 3);
                 System.out.println(c.voisine(d));
                 
                 Navire Kris = new Navire(c, 3, true);
                 Navire Mik = new Navire(d, 2, false);
                 System.out.println("chevauche = " + Kris.chevauche(Mik));
-                System.out.println("contient = " + Kris.contient(c));
+                System.out.println("contient = " + Kris.contient(d));
                 
                 
 
