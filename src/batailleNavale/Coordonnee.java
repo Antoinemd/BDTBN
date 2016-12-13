@@ -49,7 +49,7 @@ public class Coordonnee {
                 // la bataille navale (exemple : "C6")
 
                 String s = "";
-                /*String col = "";
+                String col = "";
                 switch (this.colonne) {
                 case 1 : col = "A"; break;
                 case 2 : col = "B"; break;
@@ -78,7 +78,7 @@ public class Coordonnee {
                 case 25 : col = "Y"; break;
                 case 26 : col = "Z"; break;
                 }
-                s += col + this.ligne;*/
+                s += col + this.ligne;
                 return s;
         }
 

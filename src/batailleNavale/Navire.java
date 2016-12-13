@@ -46,16 +46,10 @@ public class Navire {
 			}
 	
 	public boolean touche(Navire n) {
-		if((this.estHorizontal) && (n.estHorizontal) && ((n.debut.getLigne() <= this.debut.getLigne() + 1) || (n.debut.getLigne() >= this.debut.getLigne() - 1))) {	// Le navire N est-il a une ligne d'écart de this ?
-			for(int i = this.debut.getColonne(); i < this.fin.getColonne(); i++) {	// Si oui, on regarde si chaque choordonnée de voisine est éventuellement voisine d'une coordonnée de n
-				for(int j = n.debut.getColonne(); j < n.fin.getColonne(); j++) {
-					if(i == j)	// si une coordonnée de this et une de n se trouvent sur la même colonne, elles sont voisines car à une ligne d'écart tout au plus
-						return(true);
-				}
-				
-			}
-		}
-		return true;
+		/*return!(((n.fin.getColonne() == this.debut.getColonne() - 1) && (n.fin.getLigne() == this.debut.getLigne() - 1)) || // haut gauche
+				((n.fin.getColonne() == this.debut.getColonne() - 1) && (n.debut.getLigne() == this.debut.getLigne() + 1)) || // bas gauche
+				((n.debut.getColonne() == this.fin.getColonne() + 1) && (n.fin.getLigne() == this.fin.getLigne() - 1)) || // haut droite
+				((n.debut.getColonne() == this.fin.getColonne() + 1) && (n.debut.getLigne() == this.fin.getLigne() + 1))); // bas droite*/
 	}
 	
 	public boolean chevauche(Navire n) {
