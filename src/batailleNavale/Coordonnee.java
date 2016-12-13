@@ -135,18 +135,19 @@ public class Coordonnee {
         }
 
         public static void main(String[] args) {
-                Coordonnee c = new Coordonnee(3, 1);
-                Coordonnee d = new Coordonnee(3, 3);
+                Coordonnee c = new Coordonnee(3, 3);
+                Coordonnee d = new Coordonnee(4, 5);
                 System.out.println(c.voisine(d));
                 
-                Navire Kris = new Navire(c, 2, false);
-                Navire Mik = new Navire(d, 2, true);
+                Navire Kris = new Navire(c, 3, false);
+                Navire Mik = new Navire(d, 3, true);
                 System.out.println("chevauche = " + Kris.chevauche(Mik));
                 System.out.println("contient = " + Kris.contient(d));
                 System.out.println("Kris : " + Kris.toString());
                 System.out.println("Longueur PartiesTouchees Kris : " + Kris.getPartiesToucheesLength());
                 System.out.println("Longueur PartiesTouchees Mik : " + Mik.getPartiesToucheesLength());
                 System.out.println("Touche = " + Kris.touche(Mik));
+                System.out.println("Touche = " + Mik.touche(Kris));
                 
                 
 

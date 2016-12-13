@@ -1,7 +1,7 @@
 package batailleNavale;
 
 public class Navire {
-	
+
 	private Coordonnee debut;
 	private Coordonnee fin;
 	private Coordonnee[] partiesTouchees;
@@ -10,106 +10,226 @@ public class Navire {
 
 	public Navire(Coordonnee debut, int longueur, boolean estVertical) {
 		this.debut = debut;
-		if(estVertical) {
-			this.fin = new Coordonnee(this.debut.getLigne() + longueur - 1, this.debut.getColonne());	// Pourquoi -1 ?
+		if (estVertical) {
+			this.fin = new Coordonnee(this.debut.getLigne() + longueur - 1, this.debut.getColonne()); // Pourquoi
+																										// -1
+																										// ?
 			this.estHorizontal = false;
-		}
-		else {
-			this.fin = new Coordonnee(this.debut.getLigne(), this.debut.getColonne() + longueur - 1);	// Pourquoi -1 ?
+		} else {
+			this.fin = new Coordonnee(this.debut.getLigne(), this.debut.getColonne() + longueur - 1); // Pourquoi
+																										// -1
+																										// ?
 			this.estHorizontal = true;
 		}
 		partiesTouchees = new Coordonnee[longueur];
 		nbTouchees = 0;
 	}
-	
+
 	public String toString() {
 		String s = "";
 		int longueur;
 		s += "Navire (" + this.debut.toString() + ", ";
-		if(this.estHorizontal) {
-			longueur = (this.fin.getColonne() - this.debut.getColonne()) + 1;	// +1 pour compenser le longueur -1 incompris du constructeur Navire()
+		if (this.estHorizontal) {
+			longueur = (this.fin.getColonne() - this.debut.getColonne()) + 1; // +1
+																				// pour
+																				// compenser
+																				// le
+																				// longueur
+																				// -1
+																				// incompris
+																				// du
+																				// constructeur
+																				// Navire()
 			s += longueur + ", Horizontal)";
-		}
-		else {
-			longueur = (this.fin.getLigne() - this.debut.getLigne()) + 1;		// Pareil
+		} else {
+			longueur = (this.fin.getLigne() - this.debut.getLigne()) + 1; // Pareil
 			s += longueur + ", Vertical)";
 		}
 		return s;
 	}
-	
+
 	public Coordonnee getDebut() {
 		return this.debut;
 	}
-	
+
 	public Coordonnee getFin() {
 		return this.fin;
 	}
-	
-	public int getPartiesToucheesLength() {	// Pour debug
-		return(partiesTouchees.length);
+
+	public int getPartiesToucheesLength() { // Pour debug
+		return (partiesTouchees.length);
 	}
-	
+
 	public boolean contient(Coordonnee c) {
-		return((c.getLigne() == this.debut.getLigne()) && ((c.getColonne() >= this.debut.getColonne()) && ((c.getColonne() <= this.fin.getColonne()))) ||
-				((c.getColonne() == this.debut.getColonne()) && ((c.getLigne() >= this.debut.getLigne()) && ((c.getLigne() <= this.fin.getLigne()))) )
-				);
-		// On regarde si la coordonnee c est sur la même ligne/colonne que this, puis on regarde si elle est comprise entre le début et la fin de this
-			}
-	
+		return ((c.getLigne() == this.debut.getLigne())
+				&& ((c.getColonne() >= this.debut.getColonne()) && ((c.getColonne() <= this.fin.getColonne())))
+				|| ((c.getColonne() == this.debut.getColonne())
+						&& ((c.getLigne() >= this.debut.getLigne()) && ((c.getLigne() <= this.fin.getLigne())))));
+		// On regarde si la coordonnee c est sur la même ligne/colonne que this,
+		// puis on regarde si elle est comprise entre le début et la fin de this
+	}
+
 	public boolean touche(Navire n) {
-		int cACote = Math.abs(this.debut.getLigne() - n.debut.getLigne());		// si = 1, les navires se touchent de colonne à colonne
+		/*int cACote = Math.abs(this.debut.getLigne() - n.debut.getLigne());		// si = 1, les navires se touchent de colonne à colonne
 		int lACote = Math.abs(this.debut.getColonne() - n.debut.getColonne());	// si = 1, les navires se touchent de ligne à ligne
 		//int cACote = this.debut.getLigne() - n.debut.getLigne();
 		//int lACote = this.debut.getColonne() - n.debut.getColonne();
 		System.out.println(cACote + ", " + lACote);
-		return((cACote <= 1) && (this.fin.getColonne() < n.debut.getColonne()) && (this.debut.getColonne() > n.fin.getColonne())) ||
-				((lACote <= 1) && (this.fin.getLigne() < n.debut.getLigne() && (this.debut.getLigne() > n.fin.getLigne())));
-	}
-	
-	public boolean chevauche(Navire n) {
-		return(((this.debut.getLigne() == n.debut.getLigne()) && (this.fin.getColonne() >= n.debut.getColonne()) && (this.debut.getColonne() <= n.fin.getColonne())) ||
-				((this.debut.getColonne() == n.debut.getColonne()) && (this.fin.getLigne() >= n.debut.getLigne() && (this.debut.getLigne() <= n.fin.getLigne()))));
-		// on regarde si le navire n est situé sur la même ligne / colonne que this, et si les indices de lignes/colonnes de l'un sont dans l'intervalle de début/fin de l'autre.
-	}
-	
-	public boolean recoitTir(Coordonnee c) {
-			// On agrandit le tableau partiesTouchees
-			boolean cExist = false;		// cExiste vérifie si la coordonnée c figure déjà dans les parties touchées du navire
-			if(this.contient(c)) {		// on vérifie si la coordonnée correspond à une partie du navire
-				for(int i = 0; i < this.partiesTouchees.length; i ++) {
-					if(this.partiesTouchees[i] == c)	// si c existe dans le tableau
-						cExist = true;					// c existe (captain obvious !)
-				}
-				if(!cExist) {
-					for(int i = 0; i < this.partiesTouchees.length; i++) {
-						if(this.partiesTouchees[i] == null)	// on cherche le premier espace nul du tableau
-							this.partiesTouchees[i] = c;	// on y ajoute c
-							nbTouchees += 1;				// on incrémente le nombre de parties touchées
-					}
-				}
-			}
-			return (!cExist);	// si c existe, le bateau ne peut pas être touché. Si c n'existe pas encore, le bateau est touché.
+		return((cACote == 1) && (this.fin.getColonne() < n.debut.getColonne()) && (this.debut.getColonne() > n.fin.getColonne())) ||
+				((lACote == 1) && (this.fin.getLigne() < n.debut.getLigne() && (this.debut.getLigne() > n.fin.getLigne())));*/
+		/*return((((this.debut.getLigne() + 1 == n.debut.getLigne()) || (this.debut.getLigne() - 1 == n.debut.getLigne())) &&
+				(this.fin.getColonne() > n.debut.getColonne()) && (this.debut.getColonne() < n.fin.getColonne()))
+				||
+				(((this.debut.getColonne() + 1 == n.debut.getColonne()) || (this.debut.getColonne() - 1 == n.debut.getColonne())) && 
+				(this.fin.getLigne() > n.debut.getLigne() && (this.debut.getLigne() < n.fin.getLigne()))));*/
+		
+		/*return(
+				n.debut.getLigne() <= this.fin.getLigne() + 1
+				&&
+				n.fin.getLigne() >= this.debut.getLigne() - 1
+				&&
+				n.fin.getColonne() >= this.debut.getColonne() - 1
+				&&
+				n.debut.getColonne() <= this.fin.getColonne() + 1
+				);*/
+		
+		/*return(
+				// Gestion horizontale/horizontale
+				((this.debut.getLigne() == n.debut.getLigne() + 1) && (this.fin.getColonne() >= n.debut.getColonne()) && (this.debut.getColonne() <= n.fin.getColonne())) ||
+				((this.debut.getLigne() + 1 == n.debut.getLigne()) && (this.fin.getColonne() >= n.debut.getColonne()) && (this.debut.getColonne() <= n.fin.getColonne())) ||
+				((this.debut.getLigne() == n.debut.getLigne()    ) && ((this.fin.getColonne() + 1 == n.debut.getColonne()) || (this.debut.getColonne() -1 == n.fin.getColonne())))
+				||
+				// Gestion verticale/verticale
+				((this.debut.getColonne() == n.debut.getColonne() + 1) && (this.fin.getLigne() >= n.debut.getLigne() && (this.debut.getLigne() <= n.fin.getLigne()))) ||
+				((this.debut.getColonne() + 1 == n.debut.getColonne()) && (this.fin.getLigne() >= n.debut.getLigne() && (this.debut.getLigne() <= n.fin.getLigne()))) ||
+				((this.debut.getColonne() == n.debut.getColonne()    ) && ((this.fin.getLigne() + 1 == n.debut.getLigne()) || (this.debut.getLigne() -1 == n.fin.getLigne())))
+				//||
+				// Gestion disparate (this = vertical, n = horizontal)
+				//((this.fin.getLigne() + 1 >))*/
+		
+		/*return(
+				(
+				(n.fin.getLigne() + 1 == this.debut.getLigne()
+				&&
+					(
+							n.debut.getColonne() <= this.fin.getColonne()
+							||
+							n.fin.getColonne() >= this.debut.getColonne()
+					)
+				)
+				||
+				(n.fin.getLigne() - 1 == this.debut.getLigne()
+				&&
+					(
+							n.debut.getColonne() <= this.fin.getColonne()
+							||
+							n.fin.getColonne() >= this.debut.getColonne()
+					)
+				)
+				||
+				(this.fin.getLigne() + 1 == n.debut.getLigne()
+				&&
+					(
+							this.debut.getColonne() <= n.fin.getColonne()
+							||
+							this.fin.getColonne() >= n.debut.getColonne()
+					)
+				)
+				||
+				(this.fin.getLigne() - 1 == n.debut.getLigne()
+				&&
+					(
+							this.debut.getColonne() <= n.fin.getColonne()
+							||
+							this.fin.getColonne() >= n.debut.getColonne()
+					)
+				)
+				)
+				);*/
+		
+		// this doit toucher n
+		if(!(
+				(this.fin.getLigne() == n.debut.getLigne() - 1 && this.fin.getColonne() == n.debut.getColonne() - 1) ||
+				(this.debut.getLigne() == n.fin.getLigne() + 1 && this.fin.getColonne() == n.debut.getColonne() - 1) ||
+				(this.fin.getLigne() == n.debut.getLigne() - 1 && this.debut.getColonne() == n.fin.getColonne() + 1) ||
+				(this.debut.getLigne() == n.fin.getLigne() + 1 && this.debut.getColonne() == n.fin.getColonne() +1)
+				)) {
+			
+				return(
+				(this.fin.getColonne() + 1 >= n.debut.getColonne()
+				&&
+				n.fin.getColonne() +1 >= this.debut.getColonne())	// Les colonnes fonctionnes \o/
+				&&
+				(this.fin.getLigne() + 1 >= n.debut.getLigne()		// Pas les lignes /o\
+				&&
+				n.fin.getLigne() + 1 >= this.debut.getLigne())
+				);
 		}
-	
-	public boolean estTouche(Coordonnee c) {
-		boolean cExist = false;
-		for(int i = 0; i < this.partiesTouchees.length; i ++) {
-			if(this.partiesTouchees[i] == c)	// si c existe dans le tableau
-				cExist = true;					// c existe (captain obvious !)
-		}
-		return(cExist);
-	}
-	
-	public boolean estTouche() {
-		return(this.nbTouchees > 0);
-	}
-	
-	public boolean estCoule() {
-		// si le tableau partiesTouchees contient autant de valeur que nbTouchees, alors le navire est coulé
-		return(this.partiesTouchees.length >= nbTouchees);
+		else
+			return(false);
 	}
 
-	//// Main pour terster les différentes méthodes	////
+	public boolean chevauche(Navire n) {
+		/*
+		 * return(((this.debut.getLigne() == n.debut.getLigne()) &&
+		 * (this.fin.getColonne() >= n.debut.getColonne()) &&
+		 * (this.debut.getColonne() <= n.fin.getColonne())) ||
+		 * ((this.debut.getColonne() == n.debut.getColonne()) &&
+		 * (this.fin.getLigne() >= n.debut.getLigne() && (this.debut.getLigne()
+		 * <= n.fin.getLigne()))));
+		 */
+		return (((this.fin.getColonne() >= n.debut.getColonne()) && (this.debut.getColonne() <= n.fin.getColonne())
+				&& (this.fin.getLigne() >= n.debut.getLigne() && this.debut.getLigne() <= n.fin.getLigne())));
+		// on regarde si le navire n est situé sur la même ligne / colonne que
+		// this, et si les indices de lignes/colonnes de l'un sont dans
+		// l'intervalle de début/fin de l'autre.
+	}
+
+	public boolean recoitTir(Coordonnee c) {
+		// On agrandit le tableau partiesTouchees
+		boolean cExist = false; // cExiste vérifie si la coordonnée c figure
+								// déjà dans les parties touchées du navire
+		if (this.contient(c)) { // on vérifie si la coordonnée correspond à une
+								// partie du navire
+			for (int i = 0; i < this.partiesTouchees.length; i++) {
+				if (this.partiesTouchees[i] == c) // si c existe dans le tableau
+					cExist = true; // c existe (captain obvious !)
+			}
+			if (!cExist) {
+				for (int i = 0; i < this.partiesTouchees.length; i++) {
+					if (this.partiesTouchees[i] == null) // on cherche le
+															// premier espace
+															// nul du tableau
+						this.partiesTouchees[i] = c; // on y ajoute c
+					nbTouchees += 1; // on incrémente le nombre de parties
+										// touchées
+				}
+			}
+		}
+		return (!cExist); // si c existe, le bateau ne peut pas être touché. Si
+							// c n'existe pas encore, le bateau est touché.
+	}
+
+	public boolean estTouche(Coordonnee c) {
+		boolean cExist = false;
+		for (int i = 0; i < this.partiesTouchees.length; i++) {
+			if (this.partiesTouchees[i] == c) // si c existe dans le tableau
+				cExist = true; // c existe (captain obvious !)
+		}
+		return (cExist);
+	}
+
+	public boolean estTouche() {
+		return (this.nbTouchees > 0);
+	}
+
+	public boolean estCoule() {
+		// si le tableau partiesTouchees contient autant de valeur que
+		// nbTouchees, alors le navire est coulé
+		return (this.partiesTouchees.length >= nbTouchees);
+	}
+
+	//// Main pour terster les différentes méthodes ////
 	public static void main(String[] args) {
 
 	}
