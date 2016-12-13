@@ -50,10 +50,23 @@ public class Navire {
 				((n.fin.getColonne() == this.debut.getColonne() - 1) && (n.debut.getLigne() == this.debut.getLigne() + 1)) || // bas gauche
 				((n.debut.getColonne() == this.fin.getColonne() + 1) && (n.fin.getLigne() == this.fin.getLigne() - 1)) || // haut droite
 				((n.debut.getColonne() == this.fin.getColonne() + 1) && (n.debut.getLigne() == this.fin.getLigne() + 1))); // bas droite*/
+		for(int i = this.debut.getColonne(); i < this.fin.getColonne(); i++) {
+			Coordonnee parcoursThis = new Coordonnee(this.debut.getLigne(), i);
+			if(n.contient(parcoursThis))
+				return(true);
+		}
 	}
 	
 	public boolean chevauche(Navire n) {
-		return true;
+		for(int i = this.debut.getColonne(); i < this.fin.getColonne(); i++) {
+			Coordonnee parcoursThisColonne = new Coordonnee(this.debut.getLigne(), i);
+			for(int j = this.debut.getLigne(); j < this.fin.getLigne(); j++) {
+				Coordonnee parcoursThisLigne = new Coordonnee(j, this.debut.getColonne());
+				if((n.contient(parcoursThisColonne) || (n.contient(parcoursThisLigne))))
+						return(true);
+			}
+		}
+		return false;
 	}
 	
 	public boolean recoitTir(Coordonnee c) {
