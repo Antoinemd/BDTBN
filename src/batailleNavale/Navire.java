@@ -45,6 +45,10 @@ public class Navire {
 		return this.fin;
 	}
 	
+	public int getPartiesToucheesLength() {	// Pour debug
+		return(partiesTouchees.length);
+	}
+	
 	public boolean contient(Coordonnee c) {
 		return((c.getLigne() == this.debut.getLigne()) && ((c.getColonne() >= this.debut.getColonne()) && ((c.getColonne() <= this.fin.getColonne()))) ||
 				((c.getColonne() == this.debut.getColonne()) && ((c.getLigne() >= this.debut.getLigne()) && ((c.getLigne() <= this.fin.getLigne()))) )
@@ -78,22 +82,25 @@ public class Navire {
 					}
 				}
 			}
-			return (!cExist);
+			return (!cExist);	// si c existe, le bateau ne peut pas être touché. Si c n'existe pas encore, le bateau est touché.
 		}
 	
 	public boolean estTouche(Coordonnee c) {
-		return(this.recoitTir(c));
+		boolean cExist = false;
+		for(int i = 0; i < this.partiesTouchees.length; i ++) {
+			if(this.partiesTouchees[i] == c)	// si c existe dans le tableau
+				cExist = true;					// c existe (captain obvious !)
+		}
+		return(cExist);
 	}
 	
 	public boolean estTouche() {
-		if(this.nbTouchees > 0)
-			return true;
-		return false;
+		return(this.nbTouchees > 0);
 	}
 	
 	public boolean estCoule() {
 		// si le tableau partiesTouchees contient autant de valeur que nbTouchees, alors le navire est coulé
-		return true;
+		return(this.partiesTouchees.length >= nbTouchees);
 	}
 
 	//// Main pour terster les différentes méthodes	////

@@ -144,6 +144,7 @@ public class Coordonnee {
                 System.out.println("chevauche = " + Kris.chevauche(Mik));
                 System.out.println("contient = " + Kris.contient(d));
                 System.out.println(Kris.toString());
+                System.out.println(Kris.getPartiesToucheesLength());
                 
                 
 
