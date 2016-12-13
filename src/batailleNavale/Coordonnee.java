@@ -131,9 +131,15 @@ public class Coordonnee {
         }
 
         public static void main(String[] args) {
-                Coordonnee c = new Coordonnee(25, 3);
-                Coordonnee d = new Coordonnee(25, 3);
-                System.out.println(c.equals(d));
+                Coordonnee c = new Coordonnee(1, 1);
+                Coordonnee d = new Coordonnee(1, 7);
+                System.out.println(c.voisine(d));
+                
+                Navire Kris = new Navire(c, 3, true);
+                Navire Mik = new Navire(d, 3, true);
+                System.out.println("chevauche = " + Kris.chevauche(Mik));
+                
+                
 
         }
 

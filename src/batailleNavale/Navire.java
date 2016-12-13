@@ -51,22 +51,31 @@ public class Navire {
 				((n.debut.getColonne() == this.fin.getColonne() + 1) && (n.fin.getLigne() == this.fin.getLigne() - 1)) || // haut droite
 				((n.debut.getColonne() == this.fin.getColonne() + 1) && (n.debut.getLigne() == this.fin.getLigne() + 1))); // bas droite*/
 		for(int i = this.debut.getColonne(); i < this.fin.getColonne(); i++) {
-			Coordonnee parcoursThis = new Coordonnee(this.debut.getLigne(), i);
-			if(n.contient(parcoursThis))
-				return(true);
-		}
-	}
-	
-	public boolean chevauche(Navire n) {
-		for(int i = this.debut.getColonne(); i < this.fin.getColonne(); i++) {
 			Coordonnee parcoursThisColonne = new Coordonnee(this.debut.getLigne(), i);
 			for(int j = this.debut.getLigne(); j < this.fin.getLigne(); j++) {
 				Coordonnee parcoursThisLigne = new Coordonnee(j, this.debut.getColonne());
-				if((n.contient(parcoursThisColonne) || (n.contient(parcoursThisLigne))))
-						return(true);
+
 			}
 		}
 		return false;
+	}
+	
+	public boolean chevauche(Navire n) {
+		/*for(int i = this.debut.getColonne(); i < this.fin.getColonne(); i++) {
+			Coordonnee parcoursThisColonne = new Coordonnee(this.debut.getLigne(), i);
+			for(int j = this.debut.getLigne(); j < this.fin.getLigne(); j++) {
+				Coordonnee parcoursThisLigne = new Coordonnee(j, this.debut.getColonne());
+				return((n.contient(parcoursThisColonne) || (n.contient(parcoursThisLigne))));
+			}
+		}*/
+		// On regarde si n est dans l'intervalle de this
+		return(
+			(((n.debut.getColonne() >= this.debut.getColonne()) && (n.debut.getColonne() <= this.fin.getColonne())) && // OK !
+			((n.debut.getLigne() >= this.debut.getLigne()) && (n.fin.getLigne() <= this.fin.getLigne())))
+			||
+			(((this.debut.getColonne() >= n.debut.getColonne()) && (this.fin.getColonne() <= n.fin.getColonne())) &&
+			((this.debut.getLigne() >= n.debut.getLigne()) && (this.fin.getLigne() <= n.fin.getLigne())))
+			);
 	}
 	
 	public boolean recoitTir(Coordonnee c) {
