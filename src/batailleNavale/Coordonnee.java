@@ -107,13 +107,17 @@ public class Coordonnee {
 
         public boolean voisine(Coordonnee c) {
 
-                // Retourne true si et seulement si this est une coordonnee voisine
-                // (verticalement ou horizontalement) de c
+            // Retourne true si et seulement si this est une coordonnee voisine
+            // (verticalement ou horizontalement) de c
 
-                if (this.ligne - c.ligne == 1 || this.ligne - c.ligne == -1 || this.colonne - c.colonne == 1 || this.colonne - c.colonne == -1)
-                        return true;
-                return false;
-        }
+            if ((this.ligne - c.ligne == 1 || this.ligne - c.ligne == -1)
+                            && (this.colonne - c.colonne == 1 || this.colonne - c.colonne == -1))
+                    return false;
+            else if (this.ligne - c.ligne == 1 || this.ligne - c.ligne == -1 || this.colonne - c.colonne == 1
+                            || this.colonne - c.colonne == -1)
+                    return true;
+            return false;
+    }
 
         public int compareTo(Coordonnee c) {
 
@@ -132,13 +136,14 @@ public class Coordonnee {
 
         public static void main(String[] args) {
                 Coordonnee c = new Coordonnee(5, 3);
-                Coordonnee d = new Coordonnee(6, 3);
+                Coordonnee d = new Coordonnee(8, 3);
                 System.out.println(c.voisine(d));
                 
                 Navire Kris = new Navire(c, 3, true);
                 Navire Mik = new Navire(d, 2, false);
                 System.out.println("chevauche = " + Kris.chevauche(Mik));
                 System.out.println("contient = " + Kris.contient(d));
+                System.out.println(Kris.toString());
                 
                 
 
