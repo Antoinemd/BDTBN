@@ -30,16 +30,7 @@ public class Navire {
 		int longueur;
 		s += "Navire (" + this.debut.toString() + ", ";
 		if (this.estHorizontal) {
-			longueur = (this.fin.getColonne() - this.debut.getColonne()) + 1; // +1
-																				// pour
-																				// compenser
-																				// le
-																				// longueur
-																				// -1
-																				// incompris
-																				// du
-																				// constructeur
-																				// Navire()
+			longueur = (this.fin.getColonne() - this.debut.getColonne()) + 1; // +1 pour compenser le -1 du constructeur
 			s += longueur + ", Horizontal)";
 		} else {
 			longueur = (this.fin.getLigne() - this.debut.getLigne()) + 1; // Pareil
@@ -110,26 +101,25 @@ public class Navire {
 		// l'intervalle de début/fin de l'autre.
 	}
 
-	public boolean recoitTir(Coordonnee c) {	// OK !
-			
-		if (this.contient(c)) {
-			if(!this.estTouche()) {	// Est-ce que c existe dans partiesTouchees[] ?
-				for (int i = 0; i < this.partiesTouchees.length; i++) {
-					if(this.partiesTouchees[i] == null) {
-						this.partiesTouchees[i] = c;	// on ajoute c au premier emplacement libre dans partiesTouchees[]
-						break;
+	public boolean recoitTir(Coordonnee c) {
+			if (this.contient(c)) {	// est-ce que this contient c ?
+				if(!(this.estTouche(c))) {
+					if(this.nbTouchees < this.partiesTouchees.length) {
+						this.partiesTouchees[nbTouchees] = c;
+						this.nbTouchees += 1;
 					}
+					return true;
 				}
 			}
-			return true;
-			}
-		else
 			return false;
-		}
+	}
 
 	public boolean estTouche(Coordonnee c) {		// Est-ce que le tir en coordonnées c touche le navire ?
-		for (int i = 0; i < this.partiesTouchees.length; i++) {
-				return(this.partiesTouchees[i] == c);
+		// On cherche a savoir si c existe dans partiesTouchees
+		for(int i = 0; i < this.partiesTouchees.length; i++) {
+			if(this.partiesTouchees[i] != null)
+				if(this.partiesTouchees[i].equals(c))
+					return true;
 		}
 		return false;
 	}

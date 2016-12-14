@@ -100,7 +100,7 @@ public class Coordonnee {
 
                 // Retourne true si et seulement si this est equivalent a obj
         		Coordonnee c = (Coordonnee) obj;
-        		if(!(obj instanceof Coordonnee) || (this.ligne != c.ligne || this.colonne != c.colonne))
+        		if(!(obj instanceof Coordonnee) || this.ligne != c.ligne || this.colonne != c.colonne)
             	  	return false;
                 return true;
         }
@@ -135,47 +135,55 @@ public class Coordonnee {
         }
 
         public static void main(String[] args) {
-        		Coordonnee g = new Coordonnee(4, 7);
                 Coordonnee c = new Coordonnee(4, 4);
                 Coordonnee d = new Coordonnee(4, 4);
                 Coordonnee e = new Coordonnee(4, 5);
                 Coordonnee f = new Coordonnee(4, 6);
-                System.out.println(c.voisine(d));
+                Coordonnee fbis = new Coordonnee(4, 6);
+                Coordonnee g = new Coordonnee(4, 7);
+//                System.out.println("equals = " + f.equals(g));
+//                System.out.println(c.voisine(d));
                 
                 Navire Kris = new Navire(c, 3, false);
-                Navire Mik = new Navire(d, 3, false);
-                System.out.println("chevauche = " + Kris.chevauche(Mik));
-                System.out.println("contient = " + Kris.contient(d));
-                System.out.println("Kris : " + Kris.toString());
+//                Navire Mik = new Navire(d, 3, false);
                 
-                System.out.println("Longueur PartiesTouchees Kris : " + Kris.getPartiesToucheesLength());
-                System.out.println("Longueur PartiesTouchees Mik : " + Mik.getPartiesToucheesLength());
-                System.out.println("Touche = " + Kris.touche(Mik));
-                System.out.println("Touche = " + Mik.touche(Kris));
+//                System.out.println("chevauche = " + Kris.chevauche(Mik));
+//                System.out.println("contient = " + Kris.contient(d));
+//                System.out.println("Kris : " + Kris.toString());
                 
-                System.out.println("RecoitTir = " + Kris.recoitTir(d));
-                System.out.println("estTouché ? " + Kris.estTouche() + "/" + "nbTouches = " + Kris.getNbTouchees());
+//                System.out.println("Longueur PartiesTouchees Kris : " + Kris.getPartiesToucheesLength());
+//                System.out.println("Longueur PartiesTouchees Mik : " + Mik.getPartiesToucheesLength());
+//                System.out.println("Touche = " + Kris.touche(Mik));
+//                System.out.println("Touche = " + Mik.touche(Kris));
+                
+                System.out.println("RecoitTir d = " + Kris.recoitTir(d));
+                System.out.println("estTouché d ? " + Kris.estTouche(d) + "/" + "nbTouches = " + Kris.getNbTouchees());
+//                System.out.println("estCoulé ? " + Kris.estCoule());
+                System.out.println(Kris.PTContent() + "\n");
+                
+                System.out.println("RecoitTir e = " + Kris.recoitTir(e));
+                System.out.println("estTouché e ? " + Kris.estTouche(e) + "/" + "nbTouches = " + Kris.getNbTouchees());
+//                System.out.println("estCoulé ? " + Kris.estCoule());
+                System.out.println(Kris.PTContent() + "\n");
+                
+                System.out.println("RecoitTir e = " + Kris.recoitTir(e));
+                System.out.println("estTouché e ? " + Kris.estTouche(e) + "/" + "nbTouches = " + Kris.getNbTouchees());
+//                System.out.println("estCoulé ? " + Kris.estCoule());
+                System.out.println(Kris.PTContent() + "\n");
+                
+                System.out.println("RecoitTir f = " + Kris.recoitTir(f));
+                System.out.println("estTouché f ? " + Kris.estTouche(f) + "/" + "nbTouches = " + Kris.getNbTouchees());
+//                System.out.println("estCoulé ? " + Kris.estCoule());
+                System.out.println(Kris.PTContent() + "\n");
+                
+                System.out.println("RecoitTir fbis = " + Kris.recoitTir(fbis));
+                System.out.println("estTouché fbis ? " + Kris.estTouche(fbis) + "/" + "nbTouches = " + Kris.getNbTouchees());
                 System.out.println("estCoulé ? " + Kris.estCoule());
                 System.out.println(Kris.PTContent() + "\n");
                 
-                System.out.println("RecoitTir = " + Kris.recoitTir(e));
-                System.out.println("estTouché ? " + Kris.estTouche() + "/" + "nbTouches = " + Kris.getNbTouchees());
-                System.out.println("estCoulé ? " + Kris.estCoule());
-                System.out.println(Kris.PTContent() + "\n");
-                
-                System.out.println("RecoitTir = " + Kris.recoitTir(f));
-                System.out.println("estTouché ? " + Kris.estTouche() + "/" + "nbTouches = " + Kris.getNbTouchees());
-                System.out.println("estCoulé ? " + Kris.estCoule());
-                System.out.println(Kris.PTContent() + "\n");
-                
-                System.out.println("RecoitTir = " + Kris.recoitTir(f));
-                System.out.println("estTouché ? " + Kris.estTouche() + "/" + "nbTouches = " + Kris.getNbTouchees());
-                System.out.println("estCoulé ? " + Kris.estCoule());
-                System.out.println(Kris.PTContent() + "\n");
-                
-                System.out.println("RecoitTir = " + Kris.recoitTir(g));
-                System.out.println("estTouché ? " + Kris.estTouche() + "/" + "nbTouches = " + Kris.getNbTouchees());
-                System.out.println("estCoulé ? " + Kris.estCoule());
+                System.out.println("RecoitTir g = " + Kris.recoitTir(g));
+                System.out.println("estTouché g ? " + Kris.estTouche(g) + "/" + "nbTouches = " + Kris.getNbTouchees());
+//                System.out.println("estCoulé ? " + Kris.estCoule());
                 System.out.println(Kris.PTContent() + "\n");
                 
                 
