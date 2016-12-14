@@ -88,7 +88,15 @@ public class GrilleNavaleBis {
 			return true;
 		return false;
 	}
-	// public boolean estCoule(Coordonnee c) {}
+	
+	public boolean estCoule(Coordonnee c) {
+		if(this.estTouche(c)) {
+			for(int i = 0; i < this.navires.length; i++)
+				if(this.navires[i].estCoule())
+					return true;
+		}
+		return false;
+	}
 	// public boolean perdu() {}
 	
 	/// Accesseurs
@@ -142,11 +150,11 @@ public class GrilleNavaleBis {
 //		System.out.println("c est dans la grille ? " + plateau.estDansGrille(d));
 		
 		/// Ajouter dans tirs recus OK !
-		System.out.println("TirsRecus : " + plateau.getTirsRecus());
-		plateau.ajouteDansTirsRecus(a);
-		System.out.println("TirsRecus : " + plateau.getTirsRecus());
-		plateau.ajouteDansTirsRecus(b);
-		System.out.println("TirsRecus : " + plateau.getTirsRecus());
+//		System.out.println("TirsRecus : " + plateau.getTirsRecus());
+//		plateau.ajouteDansTirsRecus(a);
+//		System.out.println("TirsRecus : " + plateau.getTirsRecus());
+//		plateau.ajouteDansTirsRecus(b);
+//		System.out.println("TirsRecus : " + plateau.getTirsRecus());
 		
 		// Est dans Tirs recus ? OK !
 //		System.out.println("a est dans tirs recus ? " + plateau.estDansTirsRecus(a));
@@ -180,6 +188,11 @@ public class GrilleNavaleBis {
 		System.out.println("Le tir en e est-il à l'eau ? " + plateau.estALEau(e));
 		System.out.println("Le tir en f est-il à l'eau ? " + plateau.estALEau(f));
 		System.out.println("Le tir en g est-il à l'eau ? " + plateau.estALEau(g));
+		
+		// Est coulé ?
+		System.out.println("est coulé ? " + plateau.estCoule(a));
+		System.out.println("est coulé ? " + plateau.estCoule(e));
+		System.out.println("est coulé ? " + plateau.estCoule(f));
 	}
 
 }
