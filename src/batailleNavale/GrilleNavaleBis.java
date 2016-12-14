@@ -97,7 +97,13 @@ public class GrilleNavaleBis {
 		}
 		return false;
 	}
-	// public boolean perdu() {}
+	
+	public boolean perdu() {
+		for(int i = 0; i < this.navires.length; i++)
+			if(!this.navires[i].estCoule())
+				return false;
+		return true;
+	}
 	
 	/// Accesseurs
 	public String getNavires() {	// OK !
