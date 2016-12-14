@@ -128,6 +128,8 @@ public class GrilleNavaleBis {
 		GrilleNavaleBis plateau = new GrilleNavaleBis(8, 0);
 		Coordonnee a = new Coordonnee(1, 1);
 		Coordonnee b = new Coordonnee(5, 5);
+		Coordonnee bb = new Coordonnee(5, 6);
+		Coordonnee bbb = new Coordonnee(5, 7);
 		Coordonnee c = new Coordonnee(7, 7);
 		Coordonnee d = new Coordonnee(9, 9);
 		Coordonnee e = new Coordonnee(1, 2);
@@ -202,6 +204,13 @@ public class GrilleNavaleBis {
 		System.out.println("est coulé en d ? " + plateau.estCoule(d));
 		System.out.println("est coulé en e ? " + plateau.estCoule(e));
 		System.out.println("est coulé en f ? " + plateau.estCoule(f));
+		
+		// Perdu ?
+		System.out.println("Perdu ? " + plateau.perdu());
+		plateau.recoitTir(bb);
+		plateau.recoitTir(bbb);
+		System.out.println("TirsRecus : " + plateau.getTirsRecus());
+		System.out.println("Perdu ? " + plateau.perdu());
 	}
 
 }
