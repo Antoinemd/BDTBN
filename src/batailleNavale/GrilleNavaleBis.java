@@ -64,7 +64,7 @@ public class GrilleNavaleBis {
 		return true;	// this est modifié, on renvoie true
 	}
 	
-	public boolean recoitTir(Coordonnee c) {
+	public boolean recoitTir(Coordonnee c) {	// OK ?!
 		if (this.estDansTirsRecus(c))
 			return false;
 		this.ajouteDansTirsRecus(c);
@@ -75,7 +75,7 @@ public class GrilleNavaleBis {
 		return false;	
 	}
 	
-	public boolean estTouche(Coordonnee c) {	////////////////////
+	public boolean estTouche(Coordonnee c) {	// OK ?!
 		for(int i = 0; i < this.navires.length; i++) {
 			if(navires[i].estTouche(c))
 				return true;
@@ -83,7 +83,11 @@ public class GrilleNavaleBis {
 		return false;
 	}
 	
-	// public boolean estALEau(Coordonnee c) {}
+	public boolean estALEau(Coordonnee c) {		// semble OK
+		if(!this.estTouche(c))
+			return true;
+		return false;
+	}
 	// public boolean estCoule(Coordonnee c) {}
 	// public boolean perdu() {}
 	
@@ -149,7 +153,7 @@ public class GrilleNavaleBis {
 //		System.out.println("b est dans tirs recus ? " + plateau.estDansTirsRecus(b));
 //		System.out.println("c est dans tirs recus ? " + plateau.estDansTirsRecus(c));
 		
-		// RecoitTir(c)
+		// RecoitTir(c)	// OK à priori
 		System.out.println("Recoit tir en a ? " + plateau.recoitTir(a));
 		System.out.println("Recoit tir en b ? " + plateau.recoitTir(b));
 		System.out.println("Recoit tir en c ? " + plateau.recoitTir(c));
@@ -159,7 +163,7 @@ public class GrilleNavaleBis {
 		System.out.println("Recoit tir en g ? " + plateau.recoitTir(g));
 		System.out.println("TirsRecus : " + plateau.getTirsRecus());
 		
-		// Un des navires est Touché en (c) ?
+		// Un des navires est Touché en (c) ? // OK à priori
 		System.out.println("Un navire est-il touché en a ? " + plateau.estTouche(a));
 		System.out.println("Un navire est-il touché en b ? " + plateau.estTouche(b));
 		System.out.println("Un navire est-il touché en c ? " + plateau.estTouche(c));
@@ -167,6 +171,15 @@ public class GrilleNavaleBis {
 		System.out.println("Un navire est-il touché en e ? " + plateau.estTouche(e));
 		System.out.println("Un navire est-il touché en f ? " + plateau.estTouche(f));
 		System.out.println("Un navire est-il touché en g ? " + plateau.estTouche(g));
+		
+		// Est à l'eau (c) ?	// semble OK
+		System.out.println("Le tir en a est-il à l'eau ? " + plateau.estALEau(a));
+		System.out.println("Le tir en b est-il à l'eau ? " + plateau.estALEau(b));
+		System.out.println("Le tir en c est-il à l'eau ? " + plateau.estALEau(c));
+		System.out.println("Le tir en d est-il à l'eau ? " + plateau.estALEau(d));
+		System.out.println("Le tir en e est-il à l'eau ? " + plateau.estALEau(e));
+		System.out.println("Le tir en f est-il à l'eau ? " + plateau.estALEau(f));
+		System.out.println("Le tir en g est-il à l'eau ? " + plateau.estALEau(g));
 	}
 
 }
