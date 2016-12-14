@@ -20,6 +20,10 @@ public class GrilleNavale {
 	// 3.1 : Constructeurs
 	public GrilleNavale(int taille, int[] taillesNavires) {
 		this.taille = taille;
+		nbNavires = 12;
+		navires = new Navire[nbNavires];
+		nbTirsRecus = 0;
+		tirsRecus = new Coordonnee[this.taille*this.taille];
 		for (int i = 0; i < taillesNavires.length; i++)
 			taille++;
 
@@ -32,75 +36,70 @@ public class GrilleNavale {
 
 	public GrilleNavale(int taille) {
 		this.taille = taille;
+		nbNavires = 12;
 		navires = new Navire[nbNavires];
+		nbTirsRecus = 0;
 		tirsRecus = new Coordonnee[this.taille*this.taille];
 	}
 
 	// 3.2 : Méthodes
 	public String toString() { // Andy : je pars du principe que la grille est carrée
-		String map = "";
-		char c = 'A';
-		char n = '0';
-		for (int i = 0; i < this.taille + 1; i++) {		// on avance sur les lignes
-			for (int j = 0; j < this.taille + 1; j++) {		// on avance sur les colonnes
-				
-				// Première colonne : on liste les chiffres
-				if(j == 0) {
-					if(n == '0') {	// On n'affiche pas le 0
-						map += " " + " ";
-						n++;
-					}
-					else {
-					map += n + " ";	// Mais on affiche les autres chiffres !
-					n++;
-					}
-				}
-				
-				// Première ligne : on liste les lettres
-				if(i == 0 && j < this.taille) {
-					map += c + " ";
-					c++;
-				}
-				else if(i == 0 && j >= this.taille) {
-					map += "\n";	// on retourne à la ligne à la fin de la liste de lettres
-				}
-				
-				
-				if (i > 0 && j > 0) {
-					// TODO : metttre un . c'est vide, # pour un bout de navire,
-					// X pour un tir qui a touché, O pour un tir dans l'eau
-					// TODO : d'abord parcourir Navire[] pour placer les navires
-					// # et les emplacements vides .
-					// TODO : ensuite parcours TirReçu pour placer les tirs dans
-					// l'eau O ou sur navire X
-					if(j < this.taille) {
-						for(int k = 0; k < this.tirsRecus.length; k++) {
-							if(this.tirsRecus[k] != null)							
-								if(this.tirsRecus[k].getLigne() == i && this.tirsRecus[k].getColonne() == j)
-									map += "X" + " ";
+		String map = "\t";
+		for (int i = 0; i < this.taille; i++){
+		char c = (char) (i + 'A');
+		map += c + "\t";
+		}
+		
+		for (int i = 1; i < this.taille + 1; i++) {
+			map += "\n" + i;
+			for (int j = 1; j < this.taille + 1; j++){
+				boolean dejaTire = false;
+				Coordonnee currentC = new Coordonnee(i, j);
+				for (int k = 0; k < nbTirsRecus; k++) {
+					if (tirsRecus[k].equals(currentC)) {
+						if (estTouche(currentC)) {
+							map += "\t X";
+							dejaTire = true;
 						}
-						map += ". ";
+						else if (estALEau(currentC)) {
+							map += "\t o";
+							dejaTire = true;
+						}
 					}
-					else  {
-						map += ".\n";
+				}
+				for (int k = 0; k < this.nbNavires; k++)
+					if (navires[k].contient(currentC) && dejaTire == false) {
+						map += "\t #";
+						dejaTire = true;
 					}
+				if (dejaTire == false) {
+					map += "\t .";
 				}
 			}
 		}
-		return map;
+		return (map);
 	}
 
 	public boolean ajouteNavire(Navire n) {
 		boolean canAdd = true;
 		for (int i = 0; i < navires.length; i++)
-			if (n.touche(navires[i]) || n.chevauche(navires[i]))
-				canAdd = false;
-			else
-				nbNavires++;
+			if(navires[i] != null) {
+				if (n.touche(navires[i]) || n.chevauche(navires[i]))
+					canAdd = false;
+			}
+			else {
+				for (int j = 0; j < this.navires.length; j++) {
+					if(this.navires[i] == null) {
+						this.navires[j] = n;
+						nbNavires++;
+					}
+				}
+			}
 		return canAdd;
 	}
 
 	public void placementAuto(int[] taillesNavires) {
+		
 	}
 
 	private boolean estDansGrille(Coordonnee c) {
@@ -177,10 +176,15 @@ public class GrilleNavale {
 	//// Main pour terster les différentes méthodes ////
 	public static void main(String[] args) {
 		Coordonnee c = new Coordonnee(4, 4);
+		Coordonnee debn = new Coordonnee(2, 2);
+		Navire n = new Navire(debn, 3, false);
 		GrilleNavale plateau = new GrilleNavale(8);
-		System.out.println(plateau.toString());
+		//System.out.println(plateau.toString());
+		
 		plateau.ajouteDansTirsRecus(c);
-		System.out.println(plateau.toString());
+		plateau.ajouteNavire(n);
+		System.out.println(n);
+		//System.out.println(plateau.toString());
 	}
 
 }
