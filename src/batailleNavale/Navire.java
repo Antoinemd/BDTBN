@@ -140,6 +140,12 @@ public class Navire {
 
 	//// Main pour terster les différentes méthodes ////
 	public static void main(String[] args) {
+		Coordonnee a = new Coordonnee(2, 2);
+		Coordonnee b = new Coordonnee(8, 8);
+		Navire n = new Navire(a, 3, true);
+		System.out.println("n recoit un tir en a : " + n.recoitTir(a));
+		System.out.println("n est touché en a : " + n.estTouche(a));
+		System.out.println("n est touché en b : " + n.estTouche(b));
 
 	}
 
