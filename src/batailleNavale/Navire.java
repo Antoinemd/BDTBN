@@ -113,7 +113,7 @@ public class Navire {
 	public boolean recoitTir(Coordonnee c) {	// OK !
 			
 		if (this.contient(c)) {
-			if(!this.estTouche()) {	// est-ce que c existe dans partiesTouchees[] ?
+			if(!this.estTouche()) {	// Est-ce que c existe dans partiesTouchees[] ?
 				for (int i = 0; i < this.partiesTouchees.length; i++) {
 					if(this.partiesTouchees[i] == null) {
 						this.partiesTouchees[i] = c;	// on ajoute c au premier emplacement libre dans partiesTouchees[]
@@ -127,7 +127,7 @@ public class Navire {
 			return false;
 		}
 
-	public boolean estTouche(Coordonnee c) {
+	public boolean estTouche(Coordonnee c) {		// Est-ce que le tir en coordonnées c touche le navire ?
 		for (int i = 0; i < this.partiesTouchees.length; i++) {
 				return(this.partiesTouchees[i] == c);
 		}
