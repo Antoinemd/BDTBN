@@ -103,20 +103,20 @@ public class Navire {
 
 	public boolean recoitTir(Coordonnee c) {
 			if (this.contient(c)) {	// est-ce que this contient c ?
-				if(!(this.estTouche(c))) {
+				if(!(this.estTouche(c))) {	// n'a pas été touché en c ?
 					if(this.nbTouchees < this.partiesTouchees.length) {
-						this.partiesTouchees[nbTouchees] = c;
-						this.nbTouchees += 1;
+						this.partiesTouchees[nbTouchees] = c;	// ajoute l'endroit où le navire a été touché
+						this.nbTouchees += 1;	// augmente le nb de touches
 					}
-					return true;
+					return true;	// le tir a été reçu
 				}
 			}
-			return false;
+			return false;	// sinon, si ne contient pas c / a été touché en c alors ne reçoit pas le tir
 	}
 
 	public boolean estTouche(Coordonnee c) {		// Est-ce que le tir en coordonnées c touche le navire ?
 		// On cherche a savoir si c existe dans partiesTouchees
-		for(int i = 0; i < this.partiesTouchees.length; i++) {
+		for(int i = 0; i < this.nbTouchees; i++) {
 			if(this.partiesTouchees[i] != null)
 				if(this.partiesTouchees[i].equals(c))
 					return true;
