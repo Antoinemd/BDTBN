@@ -89,7 +89,7 @@ public class GrilleNavaleBis {
 		return false;
 	}
 	
-	public boolean estCoule(Coordonnee c) {
+	public boolean estCoule(Coordonnee c) {		// semble OK !
 		if(this.estTouche(c)) {
 			for(int i = 0; i < this.navires.length; i++)
 				if(this.navires[i].estCoule())
@@ -189,10 +189,13 @@ public class GrilleNavaleBis {
 		System.out.println("Le tir en f est-il à l'eau ? " + plateau.estALEau(f));
 		System.out.println("Le tir en g est-il à l'eau ? " + plateau.estALEau(g));
 		
-		// Est coulé ?
-		System.out.println("est coulé ? " + plateau.estCoule(a));
-		System.out.println("est coulé ? " + plateau.estCoule(e));
-		System.out.println("est coulé ? " + plateau.estCoule(f));
+		// Est coulé ?	// semble OK !
+		System.out.println("est coulé en a ? " + plateau.estCoule(a));
+		System.out.println("est coulé en b ? " + plateau.estCoule(b));
+		System.out.println("est coulé en c ? " + plateau.estCoule(c));
+		System.out.println("est coulé en d ? " + plateau.estCoule(d));
+		System.out.println("est coulé en e ? " + plateau.estCoule(e));
+		System.out.println("est coulé en f ? " + plateau.estCoule(f));
 	}
 
 }
