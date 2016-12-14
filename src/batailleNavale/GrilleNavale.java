@@ -31,8 +31,8 @@ public class GrilleNavale {
 	}
 
 	public GrilleNavale(int taille) {
-		if(nbNavires<=0)throw new IllegalArgumentException();
-        if(taille<=0)throw new IllegalArgumentException();
+		//if(nbNavires<=0)throw new IllegalArgumentException();
+        //if(taille<=0)throw new IllegalArgumentException();
         this.taille = taille;
         this.navires = new Navire[nbNavires];
         
@@ -133,25 +133,27 @@ public class GrilleNavale {
 		//On verifie que le bateau n est bien dans la grille
         if(!estDansGrille(n.getDebut())    && !estDansGrille(n.getFin()))throw new IllegalArgumentException();
         //On verifie que le nombre maximum de bateau n'est pas atteint
-        if(nbNavires==navires.length){System.out.print("Vous avez déja le nombre maximum de bateau");throw new IllegalArgumentException();}
+        //if(nbNavires==navires.length){System.out.print("Vous avez déja le nombre maximum de bateau");throw new IllegalArgumentException();}
         
         //Si c'est le premier navire on le rentre dans le tableau
         if(this.nbNavires==0){
-            this.navires[0]=n;
             this.nbNavires += 1;
+            this.navires = new Navire[nbNavires];
+            this.navires[0] = n;
             return true;
         }
         
         // Si le bateau touche ou chevauche un bateau existant on relance la génération
         for (int i = 0; i < this.nbNavires; i++)
             if (this.navires[i].chevauche(n) || this.navires[i].touche(n)) {
-                return false;}
-
-        // si le bateau est valide on incremente nbNavires
-        this.navires[nbNavires]=n;
-        this.nbNavires += 1;
+                return false;
+                }
+            else {	// si le bateau est valide on incremente nbNavires
+            	this.nbNavires += 1;
+            	this.navires = new Navire[nbNavires];
+            	this.navires[nbNavires] = n;
+            }
         return true;
-
     }
 
 	public void placementAuto(int[] taillesNavires) {
@@ -243,10 +245,16 @@ public class GrilleNavale {
 
 	//// Main pour terster les différentes méthodes ////
 	public static void main(String[] args) {
-		int[] tailleNav = { 2, 4 };
+		//int[] tailleNav = { 2, 4 };
 		Coordonnee[] tirs = { new Coordonnee(4,4), new Coordonnee(6,6) };
 		Coordonnee c = new Coordonnee(4, 4);
+		Coordonnee d = new Coordonnee(2, 2);
+		Coordonnee e = new Coordonnee(2, 7);
+		Navire n = new Navire(d, 3, false);
+		Navire o = new Navire(e, 4, true);
 		GrilleNavale plateau = new GrilleNavale(8);
+		plateau.ajouteNavire(n);
+		plateau.ajouteNavire(o);
 		System.out.println(plateau.toString());
 		plateau.ajouteDansTirsRecus(c);
 		System.out.println(plateau.toString());
