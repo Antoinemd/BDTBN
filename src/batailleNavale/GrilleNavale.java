@@ -32,6 +32,8 @@ public class GrilleNavale {
 
 	public GrilleNavale(int taille) {
 		this.taille = taille;
+		navires = new Navire[nbNavires];
+		tirsRecus = new Coordonnee[this.taille*this.taille];
 	}
 
 	// 3.2 : Méthodes
@@ -71,10 +73,17 @@ public class GrilleNavale {
 					// # et les emplacements vides .
 					// TODO : ensuite parcours TirReçu pour placer les tirs dans
 					// l'eau O ou sur navire X
-					if(j < this.taille)
+					if(j < this.taille) {
+						for(int k = 0; k < this.tirsRecus.length; k++) {
+							if(this.tirsRecus[k] != null)							
+								if(this.tirsRecus[k].getLigne() == i && this.tirsRecus[k].getColonne() == j)
+									map += "X" + " ";
+						}
 						map += ". ";
-					else
+					}
+					else  {
 						map += ".\n";
+					}
 				}
 			}
 		}
@@ -110,7 +119,9 @@ public class GrilleNavale {
 
 	private boolean estDansTirsRecus(Coordonnee c) {
 		for (int i = 0; i < this.tirsRecus.length; i++)
-			return (this.tirsRecus[i] == c);
+			if(this.tirsRecus[i] != null)
+				if(this.tirsRecus[i].equals(c))
+					return true;
 		return false;
 	}
 
@@ -124,10 +135,38 @@ public class GrilleNavale {
 		}
 		return false;
 	}
-	// public boolean recoitTir(Coordonnee c) {}
-	// public boolean estTouche(Coordonnee c) {}
-	// public boolean estALEau(Coordonnee c) {}
-	// public boolean estCoule(Coordonnee c) {}
+	public boolean recoitTir(Coordonnee c) {
+		if(!(estDansTirsRecus(c)))
+			for(int i = 0; i < this.navires.length; i++) {
+				if(this.navires[i].recoitTir(c))
+					return true;
+			}
+		return false;
+	}
+	public boolean estTouche(Coordonnee c) {
+		for(int i = 0; i < this.navires.length; i++) {
+			if(this.navires[i].estTouche())
+				return true;
+		}
+		return false;
+	}
+	
+	public boolean estALEau(Coordonnee c) {
+		if(!(estDansTirsRecus(c)))
+			for(int i = 0; i < this.navires.length; i++) {
+				if(this.navires[i].recoitTir(c))
+					return false;
+			}
+		return true;
+	}
+	
+	public boolean estCoule(Coordonnee c) {
+		for(int i = 0; i < this.navires.length; i++) {
+			if(this.navires[i].estCoule())
+					return true;
+		}
+		return false;
+	}
 	// public boolean perdu() {}
 
 	//// Main pour terster les différentes méthodes ////
@@ -136,6 +175,7 @@ public class GrilleNavale {
 		GrilleNavale plateau = new GrilleNavale(8);
 		System.out.println(plateau.toString());
 		plateau.ajouteDansTirsRecus(c);
+		System.out.println(plateau.toString());
 	}
 
 }
