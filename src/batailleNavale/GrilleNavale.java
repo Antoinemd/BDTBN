@@ -214,10 +214,10 @@ public class GrilleNavale {
 	
 	public boolean estTouche(Coordonnee c) {
 		for (int i = 0; i < this.nbNavires; i++){
-	           if (this.navires[i].estTouche(c))
-	               return true;
+	           if (!this.navires[i].estTouche(c))
+	               return false;
 	       }
-	       return false;
+	       return true;
 	   }
 	
 	public boolean estALEau(Coordonnee c) {

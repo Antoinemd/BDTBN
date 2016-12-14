@@ -43,7 +43,7 @@ public class GrilleNavaleBis {
 	
 	// public void placementAuto(int[] taillesNavires) {}
 	
-	private boolean estDansGrille(Coordonnee c) {
+	private boolean estDansGrille(Coordonnee c) { // OK !
 		return(c.getLigne() <= this.taille && c.getColonne() <= this.taille);
 	}
 	
@@ -64,12 +64,18 @@ public class GrilleNavaleBis {
 		return true;	// this est modifié, on renvoie true
 	}
 	
-	public boolean recoitTir(Coordonnee c) {
-		this.ajouteDansTirsRecus(c);
-		return false;
-	}
+	public boolean recoitTir(Coordonnee c) {	// OK !
+		if (this.estDansTirsRecus(c))
+			return false;
+		for (int i = 0; i < this.navires.length; i++) {
+			if (this.navires[i].recoitTir(c))
+				this.ajouteDansTirsRecus(c);
+				return true;
+		}
+		return false;	
+		}
 	
-	public boolean estTouche(Coordonnee c) {
+	public boolean estTouche(Coordonnee c) {	////////////////////
 		for(int i = 0; i < this.navires.length; i++) {
 			if(navires[i].estTouche(c))
 				return true;
@@ -82,7 +88,7 @@ public class GrilleNavaleBis {
 	// public boolean perdu() {}
 	
 	/// Accesseurs
-	public String getNavires() {
+	public String getNavires() {	// OK !
 		if(this.navires.length == 0)
 			return "[]";
 		String content = "[" + this.navires[0];
@@ -91,7 +97,7 @@ public class GrilleNavaleBis {
 		return content + "]";
 	}
 	
-	public String getTirsRecus() {
+	public String getTirsRecus() {	// OK !
 		if(this.tirsRecus.length == 0)
 			return "[]";
 		String content = "[" + this.tirsRecus[0];
@@ -130,23 +136,23 @@ public class GrilleNavaleBis {
 //		System.out.println("c est dans la grille ? " + plateau.estDansGrille(d));
 		
 		/// Ajouter dans tirs recus OK !
-//		System.out.println("TirsRecus : " + plateau.getTirsRecus());
-//		plateau.ajouteDansTirsRecus(a);
-//		System.out.println("TirsRecus : " + plateau.getTirsRecus());
-//		plateau.ajouteDansTirsRecus(b);
-//		System.out.println("TirsRecus : " + plateau.getTirsRecus());
+		System.out.println("TirsRecus : " + plateau.getTirsRecus());
+		plateau.ajouteDansTirsRecus(a);
+		System.out.println("TirsRecus : " + plateau.getTirsRecus());
+		plateau.ajouteDansTirsRecus(b);
+		System.out.println("TirsRecus : " + plateau.getTirsRecus());
 		
 		// Est dans Tirs recus ? OK !
 //		System.out.println("a est dans tirs recus ? " + plateau.estDansTirsRecus(a));
 //		System.out.println("b est dans tirs recus ? " + plateau.estDansTirsRecus(b));
 //		System.out.println("c est dans tirs recus ? " + plateau.estDansTirsRecus(c));
 		
-		// RecoitTir(c)
+		// RecoitTir(c)	// OK !
 		System.out.println("Recoit tir en a ? " + plateau.recoitTir(a));
 		System.out.println("Recoit tir en b ? " + plateau.recoitTir(b));
-		System.out.println("Recoit tir en a ? " + plateau.recoitTir(c));
-		System.out.println("Recoit tir en b ? " + plateau.recoitTir(d));
-		System.out.println("Recoit tir en c ? " + plateau.recoitTir(e));
+		System.out.println("Recoit tir en c ? " + plateau.recoitTir(c));
+		System.out.println("Recoit tir en d ? " + plateau.recoitTir(d));
+		System.out.println("Recoit tir en e ? " + plateau.recoitTir(e));
 		System.out.println("TirsRecus : " + plateau.getTirsRecus());
 		
 		// Un des navires est Touché en (c) ?
@@ -154,8 +160,7 @@ public class GrilleNavaleBis {
 		System.out.println("Un navire est-il touché en b ? " + plateau.estTouche(b));
 		System.out.println("Un navire est-il touché en c ? " + plateau.estTouche(c));
 		System.out.println("Un navire est-il touché en d ? " + plateau.estTouche(d));
-		System.out.println("Un navire est-il touché en d ? " + plateau.estTouche(e));
-		
+		System.out.println("Un navire est-il touché en e ? " + plateau.estTouche(e));
 	}
 
 }

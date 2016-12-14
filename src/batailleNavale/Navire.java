@@ -39,6 +39,7 @@ public class Navire {
 		return s;
 	}
 
+	/// Accesseurs
 	public Coordonnee getDebut() {	// OK !
 		return this.debut;
 	}
@@ -51,6 +52,10 @@ public class Navire {
 		return (partiesTouchees.length);
 	}
 	
+	public int getNbTouchees() {
+		return this.nbTouchees;
+	}
+	
 	public String PTContent() {		// Contenu du tableau de coordonnees partiesTouchees
 		if(this.partiesTouchees.length == 0)
 			return "[]";
@@ -60,7 +65,8 @@ public class Navire {
 		return content + "]";
 		
 	}
-
+	
+	/// Méthodes
 	public boolean contient(Coordonnee c) {	// OK !
 		return ((c.getLigne() == this.debut.getLigne())
 				&& ((c.getColonne() >= this.debut.getColonne()) && ((c.getColonne() <= this.fin.getColonne())))
@@ -126,10 +132,6 @@ public class Navire {
 
 	public boolean estTouche() {
 		return (this.nbTouchees > 0);
-	}
-	
-	public int getNbTouchees() {
-		return this.nbTouchees;
 	}
 
 	public boolean estCoule() {
