@@ -25,8 +25,8 @@ public class Coordonnee {
 
                 // Permet d'obtenir une coordonnee de ligne i et de colonne j (indices
                 // Java)
-        		if (ligne < 1 || colonne < 1 || ligne > 26 || colonne > 26)
-        			throw new IllegalArgumentException("Valeur incorrecte");
+        		/*if (ligne < 1 || colonne < 1 || ligne >= 26 || colonne >= 26)
+        			throw new IllegalArgumentException("Valeur incorrecte");*/
         			// exception si les coordonnees sont incorrectes (incompletes, etc.)
                 this.ligne = ligne;
                 this.colonne = colonne;

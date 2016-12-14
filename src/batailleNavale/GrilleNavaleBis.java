@@ -20,7 +20,42 @@ public class GrilleNavaleBis {
 	}
 	
 	/// Méthodes
-	// public String toString() {}
+	public String toString() { // Andy : je pars du principe que la grille est carrée
+		String map = "\t";
+		for (int i = 0; i < this.taille; i++){
+		char c = (char) (i + 'A');
+		map += c + "\t";
+		}
+		
+		for (int i = 1; i < this.taille + 1; i++) {
+			map += "\n" + i;
+			for (int j = 1; j < this.taille + 1; j++){
+				boolean dejaTire = false;
+				Coordonnee currentC = new Coordonnee(i, j);
+				for (int k = 0; k < nbTirsRecus; k++) {
+					if (tirsRecus[k].equals(currentC)) {
+						if (estTouche(currentC)) {
+							map += "\t X";
+							dejaTire = true;
+						}
+						else if (estALEau(currentC)) {
+							map += "\t o";
+							dejaTire = true;
+						}
+					}
+				}
+				for (int k = 0; k < this.nbNavires; k++)
+					if (navires[k].contient(currentC) && dejaTire == false) {
+						map += "\t #";
+						dejaTire = true;
+					}
+				if (dejaTire == false) {
+					map += "\t .";
+				}
+			}
+		}
+		return (map);
+	}
 	
 	public boolean ajouteNavire(Navire n) {	// OK ! On peut même ajouter des navires s'il y en a 0 initialement
 		if(this.nbNavires >= 0) {
@@ -41,7 +76,11 @@ public class GrilleNavaleBis {
 		return false;
 	}
 	
-	// public void placementAuto(int[] taillesNavires) {}
+	public void placementAuto(int[] taillesNavires) {
+		for(int i = 0; i < this.taille; i++) {
+			///////////////////////////////////////////////////
+		}
+	}
 	
 	private boolean estDansGrille(Coordonnee c) { // OK !
 		return(c.getLigne() <= this.taille && c.getColonne() <= this.taille);
@@ -126,6 +165,7 @@ public class GrilleNavaleBis {
 
 	public static void main(String[] args) {
 		GrilleNavaleBis plateau = new GrilleNavaleBis(8, 0);
+		System.out.println(plateau);
 		Coordonnee a = new Coordonnee(1, 1);
 		Coordonnee b = new Coordonnee(5, 5);
 		Coordonnee bb = new Coordonnee(5, 6);
@@ -211,6 +251,8 @@ public class GrilleNavaleBis {
 		plateau.recoitTir(bbb);
 		System.out.println("TirsRecus : " + plateau.getTirsRecus());
 		System.out.println("Perdu ? " + plateau.perdu());
+		
+		System.out.println(plateau);
 	}
 
 }
