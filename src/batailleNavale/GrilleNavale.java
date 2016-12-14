@@ -131,14 +131,14 @@ public class GrilleNavale {
 	public boolean ajouteNavire(Navire n) {
 		
 		//On verifie que le bateau n est bien dans la grille
-        if(!estDansGrille(n.getDebut())    && !estDansGrille(n.getFin()))throw new IllegalArgumentException();
+        if(!estDansGrille(n.getDebut()) && !estDansGrille(n.getFin()))throw new IllegalArgumentException();
         //On verifie que le nombre maximum de bateau n'est pas atteint
         //if(nbNavires==navires.length){System.out.print("Vous avez déja le nombre maximum de bateau");throw new IllegalArgumentException();}
         
         //Si c'est le premier navire on le rentre dans le tableau
-        if(this.nbNavires==0){
-            this.nbNavires += 1;
-            this.navires = new Navire[nbNavires];
+        if(this.nbNavires==0) {
+        	this.nbNavires += 1;
+        	this.navires = new Navire[this.nbNavires];
             this.navires[0] = n;
             return true;
         }
@@ -149,9 +149,8 @@ public class GrilleNavale {
                 return false;
                 }
             else {	// si le bateau est valide on incremente nbNavires
-            	this.nbNavires += 1;
-            	this.navires = new Navire[nbNavires];
             	this.navires[nbNavires] = n;
+            	this.nbNavires += 1;
             }
         return true;
     }
@@ -201,7 +200,7 @@ public class GrilleNavale {
 		//On verifie si un tir n'a pas déja été effectué a ces coordonnées
         if(estDansTirsRecus(c))throw new IllegalArgumentException();
         // si il n'a pas encore était touché en c
-        if (!estTouche(c)) {
+        if (!this.estTouche(c)) {
             //on update le tableau partiesTouchees du navire
             for (int i = 0; i < this.nbNavires; i++){
                 this.navires[i].recoitTir(c);
@@ -222,15 +221,15 @@ public class GrilleNavale {
 	   }
 	
 	public boolean estALEau(Coordonnee c) {
-		if (!estTouche(c))
+		if (!this.estTouche(c))
             return true;
         return false;
     }
 	
 	public boolean estCoule(Coordonnee c) {
-		if (estTouche(c)) {
+		if (this.estTouche(c)) {
 	           for (int j = 0; j < nbNavires; j++)
-	               if (navires[j].estCoule())
+	               if (this.navires[j].estCoule())
 	                   return true;
 	       }
 	       return false;
@@ -238,7 +237,7 @@ public class GrilleNavale {
 	
 	public boolean perdu() {
 		for (int j = 0; j < nbNavires; j++)
-            if (!navires[j].estCoule())
+            if (!this.navires[j].estCoule())
                 return false;
         return true;
     }
