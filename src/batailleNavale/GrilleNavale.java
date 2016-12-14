@@ -162,12 +162,17 @@ public class GrilleNavale {
 	
 	public boolean estCoule(Coordonnee c) {
 		for(int i = 0; i < this.navires.length; i++) {
-			if(this.navires[i].estCoule())
-					return true;
+			if(this.navires[i].estCoule()) {
+				nbNavires--;
+				return true;
+			}
 		}
 		return false;
 	}
-	// public boolean perdu() {}
+	
+	public boolean perdu() {
+		return(this.nbNavires == 0);
+	}
 
 	//// Main pour terster les différentes méthodes ////
 	public static void main(String[] args) {
