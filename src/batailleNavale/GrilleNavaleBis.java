@@ -87,7 +87,7 @@ public class GrilleNavaleBis {
 	
 	public void placementAuto(int[] taillesNavires) {
 		int i = 0;
-		while(i < taillesNavires.length) {
+		while(i < taillesNavires.length && this.nbNavires < taillesNavires.length) {
 			int nbNaviresInit = this.nbNavires;	// Nomre de navires avant la création d'un nouveau navire qui sera placé aléatoirement
 			boolean estVertical = (Math.random() < 0.5);
 			Coordonnee c = new Coordonnee((int)(Math.random() * (taille - taillesNavires[i])), (int)(Math.random() * (taille - taillesNavires[i])));
@@ -272,7 +272,7 @@ public class GrilleNavaleBis {
 		
 		/// Plateau aléatoire
 		int tN[] = {2, 2, 3, 3, 4, 5};
-		GrilleNavaleBis plateauAl = new GrilleNavaleBis(10, tN);
+		GrilleNavaleBis plateauAl = new GrilleNavaleBis(20, tN);
 		System.out.println(plateauAl);
 		plateauAl.placementAuto(tN);
 		System.out.println(plateauAl);
