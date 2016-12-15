@@ -291,7 +291,7 @@ public class GrilleNavale {
 		
 		/// Plateau aléatoire
 		int tN[] = {2, 3, 3, 4, 5};
-		GrilleNavale plateauAl = new GrilleNavale(10, tN);
+		GrilleNavale plateauAl = new GrilleNavale(6, tN);
 		System.out.println(plateauAl);
 		plateauAl.placementAuto(tN);
 		System.out.println(plateauAl);
