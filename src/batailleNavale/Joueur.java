@@ -24,17 +24,28 @@ public abstract class Joueur {
 	}
 	
 	public void jouerAvec(Joueur j) {	// Constructeur de l'adversaire
-		this.adversaire.grille = j.grille;
-		this.adversaire.nom = j.nom;
-		this.adversaire.adversaire = this;
+		this.adversaire = j;
+		j.adversaire = this;
 	}
 	
 	public boolean defense(Coordonnee c) {
-		if(this.grille.perdu()) {
+		int etat = 0;
+		this.grille.recoitTir(c);	// tir c pris en compte sur la grille de this
+		if(this.grille.perdu()) {	// vérifier que ça appelle bien navure.estTouche/Coule(c) > GrilleNavale.perdu()
+			this.perdu();
+			this.adversaire.gagne();
 			return false;
 		}
-		// Retour défense
-		// Retour attaque
+		if(this.grille.estTouche(c)) {
+			if(this.grille.estCoule(c))
+				etat = COULE;
+			else
+				etat = TOUCHE;
+		}
+		else
+			etat = A_L_EAU;
+		this.retourDefense(c, etat);
+		adversaire.retourAttaque(c, etat);
 		return true;
 	}
 	
@@ -44,10 +55,11 @@ public abstract class Joueur {
 		}
 	}
 	
-	protected abstract void perdu();
-	protected abstract void gagne();
-	protected abstract void retourAttaque(Coordonnee c, int etat);
-	protected abstract void retourDefense(Coordonnee c, int etat);
+	/// Méthodes abstraites
+	protected abstract void perdu();	// invoqué lorsque this a perdu la partie. Agit sur l'interface.
+	protected abstract void gagne();	// invoqué lorsque this a gagné la partie. Agit sur l'interface.
+	protected abstract void retourAttaque(Coordonnee c, int etat);	// donne le droit d'attaquer à l'autre.
+	protected abstract void retourDefense(Coordonnee c, int etat);	// donne le droit de défendre à l'autre.
 	public abstract void debutAttaque();
 
 	public static void main(String[] args) {
