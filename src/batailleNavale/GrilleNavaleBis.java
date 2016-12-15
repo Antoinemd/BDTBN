@@ -11,10 +11,26 @@ public class GrilleNavaleBis {
 	/// Constructeurs
 	public GrilleNavaleBis(int taille, int[] taillesNavires) {
 		this.taille = taille;
-		this.nbNavires = taillesNavires.length;
+		this.nbNavires = 0;
 		this.navires = new Navire[this.nbNavires];
 		this.nbTirsRecus = 0;
 		this.tirsRecus = new Coordonnee[this.nbTirsRecus];
+		
+		if(taillesNavires.length > 1) {
+			int k = 0; // intermédiaire
+			boolean permut;	// on inverse ou non
+			do {
+				permut = false;
+				for(int i = 0; i < taillesNavires.length - 1; i++) {
+					if(taillesNavires[i] < taillesNavires[i + 1]) {
+						k = taillesNavires[i];
+						taillesNavires[i] = taillesNavires[i + 1];
+						taillesNavires[i + 1] = k;
+						permut = true;
+					}
+				}	
+			} while(permut);
+		}
 	}
 	
 	public GrilleNavaleBis(int taille, int nbNavires) {
@@ -66,7 +82,10 @@ public class GrilleNavaleBis {
 	}
 	
 	public boolean ajouteNavire(Navire n) {	// OK ! On peut même ajouter des navires s'il y en a 0 initialement
-		// Ajouter une exception si le Navire si retrouve en dehors de la grille
+		// Ajouter une exception si le Navire si retrouve en dehors de la grille*
+		if(!((this.estDansGrille(n.getDebut())) && (this.estDansGrille(n.getFin()))))
+			return false;
+		
 		if(this.nbNavires >= 0) {
 			for(int i = 0; i < this.navires.length; i++) {
 				if(this.navires[i] != null && (n.chevauche(this.navires[i]) || n.touche(this.navires[i])))
@@ -87,7 +106,7 @@ public class GrilleNavaleBis {
 	
 	public void placementAuto(int[] taillesNavires) {
 		int i = 0;
-		while(i < taillesNavires.length && this.nbNavires < taillesNavires.length) {
+		while(i < taillesNavires.length) {
 			int nbNaviresInit = this.nbNavires;	// Nomre de navires avant la création d'un nouveau navire qui sera placé aléatoirement
 			boolean estVertical = (Math.random() < 0.5);
 			Coordonnee c = new Coordonnee((int)(Math.random() * (taille - taillesNavires[i])), (int)(Math.random() * (taille - taillesNavires[i])));
@@ -98,8 +117,8 @@ public class GrilleNavaleBis {
 		}
 	}
 	
-	private boolean estDansGrille(Coordonnee c) { // OK !
-		return(c.getLigne() <= this.taille && c.getColonne() <= this.taille);
+	private boolean estDansGrille(Coordonnee c) { 	// OK !
+		return(c.getLigne() > 0 && c.getColonne() > 0 && c.getLigne() <= this.taille && c.getColonne() <= this.taille);
 	}
 	
 	private boolean estDansTirsRecus(Coordonnee c) {	// OK !
@@ -166,7 +185,7 @@ public class GrilleNavaleBis {
 			return "[]";
 		String content = "[" + this.navires[0];
 		for(int i = 1; i < this.navires.length; i++)
-			content += ", " + this.navires[i];
+			content += ",\n " + this.navires[i];
 		return content + "]";
 	}
 	
@@ -271,11 +290,33 @@ public class GrilleNavaleBis {
 //		System.out.println(plateau);
 		
 		/// Plateau aléatoire
-		int tN[] = {2, 2, 3, 3, 4, 5};
-		GrilleNavaleBis plateauAl = new GrilleNavaleBis(20, tN);
+		int tN[] = {2, 3, 3, 4, 5};
+		GrilleNavaleBis plateauAl = new GrilleNavaleBis(10, tN);
 		System.out.println(plateauAl);
 		plateauAl.placementAuto(tN);
 		System.out.println(plateauAl);
+		System.out.println(plateauAl.getNavires());
+		
+		Coordonnee a = new Coordonnee(1, 1);
+		Coordonnee b = new Coordonnee(2, 3);
+		Coordonnee c = new Coordonnee(5, 6);
+		Coordonnee d = new Coordonnee(4, 9);
+		Coordonnee e = new Coordonnee(7, 7);
+		Coordonnee f = new Coordonnee(6, 2);
+		Coordonnee g = new Coordonnee(1, 7);
+		Coordonnee h = new Coordonnee(3, 1);
+		Coordonnee i = new Coordonnee(4, 4);
+		plateauAl.recoitTir(a);
+		plateauAl.recoitTir(b);
+		plateauAl.recoitTir(c);
+		plateauAl.recoitTir(d);
+		plateauAl.recoitTir(e);
+		plateauAl.recoitTir(f);
+		plateauAl.recoitTir(g);
+		plateauAl.recoitTir(h);
+		plateauAl.recoitTir(i);
+		System.out.println(plateauAl);
+		
 	}
 
 }
