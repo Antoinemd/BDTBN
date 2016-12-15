@@ -8,17 +8,41 @@ public abstract class Joueur {
 	private GrilleNavale grille;
 	private String nom;
 	
-	public Joueur(GrilleNavale g, String nom) {...}
-	public GrilleNavale getGrille() {...}
-	public String getNom() {...}
-	public void jouerAvec(Joueur j) {...}
+	/// Constructeur
+	public Joueur(GrilleNavale g, String nom) {
+		this.grille = g;
+		this.nom = nom;
+	}
+	
+	/// Méthodes
+	public GrilleNavale getGrille() {
+		return(this.grille);
+	}
+	
+	public String getNom() {
+		return(this.nom);
+	}
+	
+	public void jouerAvec(Joueur j) {	// Constructeur de l'adversaire
+		this.adversaire.grille = j.grille;
+		this.adversaire.nom = j.nom;
+		this.adversaire.adversaire = this;
+	}
+	
+	public boolean defense(Coordonnee c) {
+		if(this.grille.perdu()) {
+			return false;
+		}
+		// Retour défense
+		// Retour attaque
+		return true;
+	}
+	
 	public void attaque(Coordonnee c) {
 		if (adversaire.defense(c)) {
 			adversaire.debutAttaque();
 		}
 	}
-	
-	public boolean defense(Coordonnee c) {...}
 	
 	protected abstract void perdu();
 	protected abstract void gagne();
