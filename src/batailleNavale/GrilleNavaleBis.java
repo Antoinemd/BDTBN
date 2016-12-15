@@ -51,10 +51,12 @@ public class GrilleNavaleBis {
 					}
 				}
 				for (int k = 0; k < this.nbNavires; k++)
+					try {
 					if (navires[k].contient(currentC) && dejaTire == false) {
 						map += "\t #";
 						dejaTire = true;
 					}
+					} catch(Exception e) {/*System.out.println("Null Pointer Exception");*/}
 				if (dejaTire == false) {
 					map += "\t .";
 				}
@@ -86,10 +88,13 @@ public class GrilleNavaleBis {
 	public void placementAuto(int[] taillesNavires) {
 		int i = 0;
 		while(i < taillesNavires.length) {
+			int nbNaviresInit = this.nbNavires;	// Nomre de navires avant la création d'un nouveau navire qui sera placé aléatoirement
 			boolean estVertical = (Math.random() < 0.5);
-			Coordonnee c = new Coordonnee((int)(Math.random(taille - taillesNavires[i])), (int)(Math.random(taille - taillesNavires[i])));
+			Coordonnee c = new Coordonnee((int)(Math.random() * (taille - taillesNavires[i])), (int)(Math.random() * (taille - taillesNavires[i])));
 			Navire n = new Navire(c, taillesNavires[i], estVertical);
 			this.ajouteNavire(n);
+			if(this.nbNavires > nbNaviresInit)
+				i++;
 		}
 	}
 	
@@ -175,95 +180,102 @@ public class GrilleNavaleBis {
 	}
 
 	public static void main(String[] args) {
-		GrilleNavaleBis plateau = new GrilleNavaleBis(8, 0);
-		System.out.println(plateau);
-		Coordonnee a = new Coordonnee(1, 1);
-		Coordonnee b = new Coordonnee(5, 5);
-		Coordonnee bb = new Coordonnee(5, 6);
-		Coordonnee bbb = new Coordonnee(5, 7);
-		Coordonnee c = new Coordonnee(7, 7);
-		Coordonnee d = new Coordonnee(9, 9);
-		Coordonnee e = new Coordonnee(1, 2);
-		Coordonnee f = new Coordonnee(1, 3);
-		Coordonnee g = new Coordonnee(1, 4);
-		System.out.println("NbNavire initial : " + plateau.nbNavires);
-		
-		/// Ajouter Navire OK !
-		Navire n1 = new Navire(a, 3, false);
-		Navire n2 = new Navire(b, 3, false);
-		Navire n3 = new Navire(b, 3, false);
-		plateau.ajouteNavire(n1);
-		//System.out.println("nombre de navires sur le plateau : " + plateau.nbNavires);
-		System.out.println("Liste des navires : " + plateau.getNavires());
-		plateau.ajouteNavire(n2);
-		//System.out.println("nombre de navires sur le plateau : " + plateau.nbNavires);
-		System.out.println("Liste des navires : " + plateau.getNavires());
-		plateau.ajouteNavire(n3);
-		//System.out.println("nombre de navires sur le plateau : " + plateau.nbNavires);
-		System.out.println("Liste des navires : " + plateau.getNavires());
-		
-		/// Est dans grille ? OK !
-//		System.out.println("a est dans la grille ? " + plateau.estDansGrille(a));
-//		System.out.println("b est dans la grille ? " + plateau.estDansGrille(b));
-//		System.out.println("c est dans la grille ? " + plateau.estDansGrille(c));
-//		System.out.println("c est dans la grille ? " + plateau.estDansGrille(d));
-		
-		/// Ajouter dans tirs recus OK !
+//		GrilleNavaleBis plateau = new GrilleNavaleBis(8, 0);
+//		System.out.println(plateau);
+//		Coordonnee a = new Coordonnee(1, 1);
+//		Coordonnee b = new Coordonnee(5, 5);
+//		Coordonnee bb = new Coordonnee(5, 6);
+//		Coordonnee bbb = new Coordonnee(5, 7);
+//		Coordonnee c = new Coordonnee(7, 7);
+//		Coordonnee d = new Coordonnee(9, 9);
+//		Coordonnee e = new Coordonnee(1, 2);
+//		Coordonnee f = new Coordonnee(1, 3);
+//		Coordonnee g = new Coordonnee(1, 4);
+//		System.out.println("NbNavire initial : " + plateau.nbNavires);
+//		
+//		/// Ajouter Navire OK !
+//		Navire n1 = new Navire(a, 3, false);
+//		Navire n2 = new Navire(b, 3, false);
+//		Navire n3 = new Navire(b, 3, false);
+//		plateau.ajouteNavire(n1);
+//		//System.out.println("nombre de navires sur le plateau : " + plateau.nbNavires);
+//		System.out.println("Liste des navires : " + plateau.getNavires());
+//		plateau.ajouteNavire(n2);
+//		//System.out.println("nombre de navires sur le plateau : " + plateau.nbNavires);
+//		System.out.println("Liste des navires : " + plateau.getNavires());
+//		plateau.ajouteNavire(n3);
+//		//System.out.println("nombre de navires sur le plateau : " + plateau.nbNavires);
+//		System.out.println("Liste des navires : " + plateau.getNavires());
+//		
+//		/// Est dans grille ? OK !
+////		System.out.println("a est dans la grille ? " + plateau.estDansGrille(a));
+////		System.out.println("b est dans la grille ? " + plateau.estDansGrille(b));
+////		System.out.println("c est dans la grille ? " + plateau.estDansGrille(c));
+////		System.out.println("c est dans la grille ? " + plateau.estDansGrille(d));
+//		
+//		/// Ajouter dans tirs recus OK !
+////		System.out.println("TirsRecus : " + plateau.getTirsRecus());
+////		plateau.ajouteDansTirsRecus(a);
+////		System.out.println("TirsRecus : " + plateau.getTirsRecus());
+////		plateau.ajouteDansTirsRecus(b);
+////		System.out.println("TirsRecus : " + plateau.getTirsRecus());
+//		
+//		// Est dans Tirs recus ? OK !
+////		System.out.println("a est dans tirs recus ? " + plateau.estDansTirsRecus(a));
+////		System.out.println("b est dans tirs recus ? " + plateau.estDansTirsRecus(b));
+////		System.out.println("c est dans tirs recus ? " + plateau.estDansTirsRecus(c));
+//		
+//		// RecoitTir(c)	// OK à priori
+//		System.out.println("Recoit tir en a ? " + plateau.recoitTir(a));
+//		System.out.println("Recoit tir en b ? " + plateau.recoitTir(b));
+//		System.out.println("Recoit tir en c ? " + plateau.recoitTir(c));
+//		System.out.println("Recoit tir en d ? " + plateau.recoitTir(d));
+//		System.out.println("Recoit tir en e ? " + plateau.recoitTir(e));
+//		System.out.println("Recoit tir en f ? " + plateau.recoitTir(f));
+//		System.out.println("Recoit tir en g ? " + plateau.recoitTir(g));
 //		System.out.println("TirsRecus : " + plateau.getTirsRecus());
-//		plateau.ajouteDansTirsRecus(a);
+//		
+//		// Un des navires est Touché en (c) ? // OK à priori
+//		System.out.println("Un navire est-il touché en a ? " + plateau.estTouche(a));
+//		System.out.println("Un navire est-il touché en b ? " + plateau.estTouche(b));
+//		System.out.println("Un navire est-il touché en c ? " + plateau.estTouche(c));
+//		System.out.println("Un navire est-il touché en d ? " + plateau.estTouche(d));
+//		System.out.println("Un navire est-il touché en e ? " + plateau.estTouche(e));
+//		System.out.println("Un navire est-il touché en f ? " + plateau.estTouche(f));
+//		System.out.println("Un navire est-il touché en g ? " + plateau.estTouche(g));
+//		
+//		// Est à l'eau (c) ?	// semble OK
+//		System.out.println("Le tir en a est-il à l'eau ? " + plateau.estALEau(a));
+//		System.out.println("Le tir en b est-il à l'eau ? " + plateau.estALEau(b));
+//		System.out.println("Le tir en c est-il à l'eau ? " + plateau.estALEau(c));
+//		System.out.println("Le tir en d est-il à l'eau ? " + plateau.estALEau(d));
+//		System.out.println("Le tir en e est-il à l'eau ? " + plateau.estALEau(e));
+//		System.out.println("Le tir en f est-il à l'eau ? " + plateau.estALEau(f));
+//		System.out.println("Le tir en g est-il à l'eau ? " + plateau.estALEau(g));
+//		
+//		// Est coulé ?	// semble OK !
+//		System.out.println("est coulé en a ? " + plateau.estCoule(a));
+//		System.out.println("est coulé en b ? " + plateau.estCoule(b));
+//		System.out.println("est coulé en c ? " + plateau.estCoule(c));
+//		System.out.println("est coulé en d ? " + plateau.estCoule(d));
+//		System.out.println("est coulé en e ? " + plateau.estCoule(e));
+//		System.out.println("est coulé en f ? " + plateau.estCoule(f));
+//		
+//		// Perdu ?	// OK !
+//		System.out.println("Perdu ? " + plateau.perdu());
+//		plateau.recoitTir(bb);
+//		plateau.recoitTir(bbb);
 //		System.out.println("TirsRecus : " + plateau.getTirsRecus());
-//		plateau.ajouteDansTirsRecus(b);
-//		System.out.println("TirsRecus : " + plateau.getTirsRecus());
+//		System.out.println("Perdu ? " + plateau.perdu());
+//		
+//		System.out.println(plateau);
 		
-		// Est dans Tirs recus ? OK !
-//		System.out.println("a est dans tirs recus ? " + plateau.estDansTirsRecus(a));
-//		System.out.println("b est dans tirs recus ? " + plateau.estDansTirsRecus(b));
-//		System.out.println("c est dans tirs recus ? " + plateau.estDansTirsRecus(c));
-		
-		// RecoitTir(c)	// OK à priori
-		System.out.println("Recoit tir en a ? " + plateau.recoitTir(a));
-		System.out.println("Recoit tir en b ? " + plateau.recoitTir(b));
-		System.out.println("Recoit tir en c ? " + plateau.recoitTir(c));
-		System.out.println("Recoit tir en d ? " + plateau.recoitTir(d));
-		System.out.println("Recoit tir en e ? " + plateau.recoitTir(e));
-		System.out.println("Recoit tir en f ? " + plateau.recoitTir(f));
-		System.out.println("Recoit tir en g ? " + plateau.recoitTir(g));
-		System.out.println("TirsRecus : " + plateau.getTirsRecus());
-		
-		// Un des navires est Touché en (c) ? // OK à priori
-		System.out.println("Un navire est-il touché en a ? " + plateau.estTouche(a));
-		System.out.println("Un navire est-il touché en b ? " + plateau.estTouche(b));
-		System.out.println("Un navire est-il touché en c ? " + plateau.estTouche(c));
-		System.out.println("Un navire est-il touché en d ? " + plateau.estTouche(d));
-		System.out.println("Un navire est-il touché en e ? " + plateau.estTouche(e));
-		System.out.println("Un navire est-il touché en f ? " + plateau.estTouche(f));
-		System.out.println("Un navire est-il touché en g ? " + plateau.estTouche(g));
-		
-		// Est à l'eau (c) ?	// semble OK
-		System.out.println("Le tir en a est-il à l'eau ? " + plateau.estALEau(a));
-		System.out.println("Le tir en b est-il à l'eau ? " + plateau.estALEau(b));
-		System.out.println("Le tir en c est-il à l'eau ? " + plateau.estALEau(c));
-		System.out.println("Le tir en d est-il à l'eau ? " + plateau.estALEau(d));
-		System.out.println("Le tir en e est-il à l'eau ? " + plateau.estALEau(e));
-		System.out.println("Le tir en f est-il à l'eau ? " + plateau.estALEau(f));
-		System.out.println("Le tir en g est-il à l'eau ? " + plateau.estALEau(g));
-		
-		// Est coulé ?	// semble OK !
-		System.out.println("est coulé en a ? " + plateau.estCoule(a));
-		System.out.println("est coulé en b ? " + plateau.estCoule(b));
-		System.out.println("est coulé en c ? " + plateau.estCoule(c));
-		System.out.println("est coulé en d ? " + plateau.estCoule(d));
-		System.out.println("est coulé en e ? " + plateau.estCoule(e));
-		System.out.println("est coulé en f ? " + plateau.estCoule(f));
-		
-		// Perdu ?	// OK !
-		System.out.println("Perdu ? " + plateau.perdu());
-		plateau.recoitTir(bb);
-		plateau.recoitTir(bbb);
-		System.out.println("TirsRecus : " + plateau.getTirsRecus());
-		System.out.println("Perdu ? " + plateau.perdu());
-		
-		System.out.println(plateau);
+		/// Plateau aléatoire
+		int tN[] = {2, 2, 3, 3, 4, 5};
+		GrilleNavaleBis plateauAl = new GrilleNavaleBis(10, tN);
+		System.out.println(plateauAl);
+		plateauAl.placementAuto(tN);
+		System.out.println(plateauAl);
 	}
 
 }
