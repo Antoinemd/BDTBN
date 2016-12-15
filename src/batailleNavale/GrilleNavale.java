@@ -198,6 +198,11 @@ public class GrilleNavale {
 		return content + "]";
 	}
 
+	public int getTailleGrille() {
+		return(this.taille);
+	}
+	
+	
 	public static void main(String[] args) {
 //		GrilleNavaleBis plateau = new GrilleNavaleBis(8, 0);
 //		System.out.println(plateau);

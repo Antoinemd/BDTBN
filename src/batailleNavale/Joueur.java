@@ -22,7 +22,7 @@ public abstract class Joueur {
 	public String getNom() {
 		return(this.nom);
 	}
-	
+		
 	public void jouerAvec(Joueur j) {	// Constructeur de l'adversaire
 		this.adversaire = j;
 		j.adversaire = this;

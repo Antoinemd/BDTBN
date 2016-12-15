@@ -33,7 +33,7 @@ public class JoueurTexte extends Joueur {
 	}
 	
 	public void debutAttaque(){
-		System.out.println("A votre tour d'attaquer !");
+		System.out.println("A votre tour d'attaquer !" + this.getNom());
 		
 		Scanner sc = new Scanner(System.in);
 		int li = sc.nextInt();
