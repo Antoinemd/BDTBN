@@ -14,31 +14,32 @@ public class JoueurTexte extends Joueur {
 	}
 	
 	protected void perdu() {
-		System.out.println("GAME OVER");
+		System.out.println("GAME OVER " + this.getNom());
 	}
 	
 	protected void gagne() {
-		System.out.println("YOU WIN");
+		System.out.println("YOU WIN " + this.getNom());
 	}
 	
 	protected void retourAttaque(Coordonnee c, int etat) {
-		System.out.println("Votre tir en " + c + " est " + etat);
+		System.out.println("Le tir de " + this.getNom() + " en " + c + this.resultatAttaque(etat));
 		// Update Grid
 		System.out.println("Grille Attaquant : \n" + this.getGrille());
 	}
 	
 	protected void retourDefense(Coordonnee c, int etat) {
-		System.out.println("Le tir de votre adversaire en " + c + " est " + etat);
-		System.out.println("Grille Attaqué : \n" + this.getGrille());
+		System.out.println(this.getNom() + " est attaqué ! ");
 	}
 	
 	public void debutAttaque(){
 		System.out.println("A votre tour d'attaquer !" + this.getNom());
-		
 		Scanner sc = new Scanner(System.in);
+		String cls = sc.nextLine();
 		int li = sc.nextInt();
-		int cl = sc.nextInt();
-		Coordonnee c = new Coordonnee(li, cl);
+		// int cli = Integer.parseInt(cls.substring(0, 1));
+		char caractere = cls.charAt(0);
+		int cli = (int)(caractere - 'A');
+		Coordonnee c = new Coordonnee(li, cli);
 		this.attaque(c);
 	}
 

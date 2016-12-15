@@ -202,6 +202,10 @@ public class GrilleNavale {
 		return(this.taille);
 	}
 	
+	public boolean getEstDansTirsRecus(Coordonnee c) {
+		return(this.estDansTirsRecus(c));
+	}
+	
 	
 	public static void main(String[] args) {
 //		GrilleNavaleBis plateau = new GrilleNavaleBis(8, 0);

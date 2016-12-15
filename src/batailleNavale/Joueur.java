@@ -19,6 +19,10 @@ public abstract class Joueur {
 		return(this.grille);
 	}
 	
+	public GrilleNavale getGrilleAdversaire() {
+		return(adversaire.grille);
+	}
+	
 	public String getNom() {
 		return(this.nom);
 	}
@@ -53,6 +57,16 @@ public abstract class Joueur {
 		if (adversaire.defense(c)) {
 			adversaire.debutAttaque();
 		}
+	}
+	
+	protected String resultatAttaque(int etat) {
+		String resultatAttaque = "";
+		switch(etat) {
+			case 1 : resultatAttaque = " touche un navire adverse !"; break;
+			case 2 : resultatAttaque = " coule un navire adverse !"; break;
+			case 3 : resultatAttaque = " tombe à l'eau !";
+		}
+		return resultatAttaque;
 	}
 	
 	/// Méthodes abstraites
