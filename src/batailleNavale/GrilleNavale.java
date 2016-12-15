@@ -1,47 +1,47 @@
 package batailleNavale;
 
 public class GrilleNavale {
-
-	/*
-	* La classe GrilleNavale represente une grille de bataille navale. Les
-	* attributs navires et nbNavires représentent les navires places sur la
-	* grille ainsi que leur nombre. L'attribut taille donne la taille de la
-	* grille (la grille est de forme carrée). Les tirsRecus et nbTirsRecus
-	* referencent les coordonnees où des tirs ont ete effectués ainsi que leur
-	* nombre.
-	*/
-
-	private Navire[] navires;
-	private int nbNavires;
+	
 	private int taille;
-	private Coordonnee[] tirsRecus;
+	private int nbNavires;
+	private Navire[] navires;
 	private int nbTirsRecus;
-
-	// 3.1 : Constructeurs
+	private Coordonnee[] tirsRecus;
+	
+	/// Constructeurs
 	public GrilleNavale(int taille, int[] taillesNavires) {
-		if(taillesNavires.length==0)throw new IllegalArgumentException();
-		if(taille<=1)throw new IllegalArgumentException();
-		
 		this.taille = taille;
-	    this.nbNavires = 0;
-	    this.nbTirsRecus = 0;
-	    this.tirsRecus = new Coordonnee[(taille * taille)];
-	    this.navires = new Navire[taillesNavires.length];
-	    placementAuto(taillesNavires);
+		this.nbNavires = 0;
+		this.navires = new Navire[this.nbNavires];
+		this.nbTirsRecus = 0;
+		this.tirsRecus = new Coordonnee[this.nbTirsRecus];
+		
+		if(taillesNavires.length > 1) {
+			int k = 0; // intermédiaire
+			boolean permut;	// on inverse ou non
+			do {
+				permut = false;
+				for(int i = 0; i < taillesNavires.length - 1; i++) {
+					if(taillesNavires[i] < taillesNavires[i + 1]) {
+						k = taillesNavires[i];
+						taillesNavires[i] = taillesNavires[i + 1];
+						taillesNavires[i + 1] = k;
+						permut = true;
+					}
+				}	
+			} while(permut);
+		}
 	}
-
-	public GrilleNavale(int taille) {
-		//if(nbNavires<=0)throw new IllegalArgumentException();
-        //if(taille<=0)throw new IllegalArgumentException();
-        this.taille = taille;
-        this.navires = new Navire[nbNavires];
-        
-        this.nbNavires = 0;
-        this.nbTirsRecus = 0;
-        this.tirsRecus = new Coordonnee[(taille * taille)];
+	
+	public GrilleNavale(int taille, int nbNavires) {
+		this.taille = taille;
+		this.nbNavires = nbNavires;
+		this.navires = new Navire[this.nbNavires];
+		this.nbTirsRecus = 0;
+		this.tirsRecus = new Coordonnee[this.nbTirsRecus];
 	}
-
-	// 3.2 : Méthodes
+	
+	/// Méthodes
 	public String toString() { // Andy : je pars du principe que la grille est carrée
 		String map = "\t";
 		for (int i = 0; i < this.taille; i++){
@@ -67,10 +67,12 @@ public class GrilleNavale {
 					}
 				}
 				for (int k = 0; k < this.nbNavires; k++)
+					try {
 					if (navires[k].contient(currentC) && dejaTire == false) {
 						map += "\t #";
 						dejaTire = true;
 					}
+					} catch(Exception e) {/*System.out.println("Null Pointer Exception");*/}
 				if (dejaTire == false) {
 					map += "\t .";
 				}
@@ -78,185 +80,243 @@ public class GrilleNavale {
 		}
 		return (map);
 	}
-//		char n = '0';
-//		for (int i = 0; i < this.taille + 1; i++) {		// on avance sur les lignes
-//			for (int j = 0; j < this.taille + 1; j++) {		// on avance sur les colonnes
-//				
-//				// Première colonne : on liste les chiffres
-//				if(j == 0) {
-//					if(n == '0') {	// On n'affiche pas le 0
-//						map += " " + " ";
-//						n++;
-//					}
-//					else {
-//					map += n + " ";	// Mais on affiche les autres chiffres !
-//					n++;
-//					}
-//				}
-//				
-//				// Première ligne : on liste les lettres
-//				if(i == 0 && j < this.taille) {
-//					map += c + " ";
-//					c++;
-//				}
-//				else if(i == 0 && j >= this.taille) {
-//					map += "\n";	// on retourne à la ligne à la fin de la liste de lettres
-//				}
-//				
-//				
-//				if (i > 0 && j > 0) {
-//					// TODO : metttre un . c'est vide, # pour un bout de navire,
-//					// X pour un tir qui a touché, O pour un tir dans l'eau
-//					// TODO : d'abord parcourir Navire[] pour placer les navires
-//					// # et les emplacements vides .
-//					// TODO : ensuite parcours TirReçu pour placer les tirs dans
-//					// l'eau O ou sur navire X
-//					if(j < this.taille) {
-//						for(int k = 0; k < this.tirsRecus.length; k++) {
-//							if(this.tirsRecus[k] != null)							
-//								if(this.tirsRecus[k].getLigne() == i && this.tirsRecus[k].getColonne() == j)
-//									map += "X" + " ";
-//						}
-//						map += ". ";
-//					}
-//					else  {
-//						map += ".\n";
-//					}
-//				}
-//			}
-//		}
-//		return map;
-//	}
-
-	public boolean ajouteNavire(Navire n) {
+	
+	public boolean ajouteNavire(Navire n) {	// OK ! On peut même ajouter des navires s'il y en a 0 initialement
+		// Ajouter une exception si le Navire si retrouve en dehors de la grille*
+		if(!((this.estDansGrille(n.getDebut())) && (this.estDansGrille(n.getFin()))))
+			return false;
 		
-		//On verifie que le bateau n est bien dans la grille
-        if(!estDansGrille(n.getDebut()) && !estDansGrille(n.getFin()))throw new IllegalArgumentException();
-        //On verifie que le nombre maximum de bateau n'est pas atteint
-        //if(nbNavires==navires.length){System.out.print("Vous avez déja le nombre maximum de bateau");throw new IllegalArgumentException();}
-        
-        //Si c'est le premier navire on le rentre dans le tableau
-        if(this.nbNavires==0) {
-        	this.nbNavires += 1;
-        	this.navires = new Navire[this.nbNavires];
-            this.navires[0] = n;
-            return true;
-        }
-        
-        // Si le bateau touche ou chevauche un bateau existant on relance la génération
-        for (int i = 0; i < this.nbNavires; i++)
-            if (this.navires[i].chevauche(n) || this.navires[i].touche(n)) {
-                return false;
-                }
-            else {	// si le bateau est valide on incremente nbNavires
-            	this.navires[nbNavires] = n;
-            	this.nbNavires += 1;
-            }
-        return true;
-    }
-
+		if(this.nbNavires >= 0) {
+			for(int i = 0; i < this.navires.length; i++) {
+				if(this.navires[i] != null && (n.chevauche(this.navires[i]) || n.touche(this.navires[i])))
+					return false;
+			}
+			this.nbNavires += 1;
+			System.out.println("Nouveau navire n° : " + this.nbNavires);
+			Navire[] naviresbis = new Navire[nbNavires];
+			for(int i = 0; i < this.navires.length; i++)
+				naviresbis[i] = this.navires[i];
+			this.navires = naviresbis;
+			this.navires[this.navires.length-1] = n;
+			System.out.println("longueur tableau navire : " + this.navires.length);
+			return true;
+		}
+		return false;
+	}
+	
 	public void placementAuto(int[] taillesNavires) {
-		for (int i = 0; i < taillesNavires.length; i++) {
-            //On gènère des coordonnées aléatoire valide avec la taille de la grille
-            Coordonnee coord = new Coordonnee((int) (Math.random() * (taille - taillesNavires[i]))+1,(int) (Math.random() * (taille - taillesNavires[i])+1));
-            //on gènère le boolean qui indiquera si le bateau est vertical ou horizontal
-            boolean bool = Math.random() < 0.5;
-            
-            //Tant que le bateau n'a pas été accepté (qu'il ne chevauche, ni ne touche un autre bateau) on continue de génèrer des coordonnées
-            while(!ajouteNavire( new Navire(coord, taillesNavires[i], bool))){
-                coord = new Coordonnee((int) (Math.random() * (taille - taillesNavires[i])),(int) (Math.random() * (taille - taillesNavires[i])));
-                bool = Math.random() < 0.5;
-            }
-        }
-    }
-
-	private boolean estDansGrille(Coordonnee c) {
-		if (c.getColonne() <= this.taille && c.getLigne() <= this.taille)
-            return true;
+		int i = 0;
+		while(i < taillesNavires.length) {
+			int nbNaviresInit = this.nbNavires;	// Nomre de navires avant la création d'un nouveau navire qui sera placé aléatoirement
+			boolean estVertical = (Math.random() < 0.5);
+			Coordonnee c = new Coordonnee((int)(Math.random() * (taille - taillesNavires[i])), (int)(Math.random() * (taille - taillesNavires[i])));
+			Navire n = new Navire(c, taillesNavires[i], estVertical);
+			this.ajouteNavire(n);
+			if(this.nbNavires > nbNaviresInit)
+				i++;
+		}
+	}
+	
+	private boolean estDansGrille(Coordonnee c) { 	// OK !
+		return(c.getLigne() > 0 && c.getColonne() > 0 && c.getLigne() <= this.taille && c.getColonne() <= this.taille);
+	}
+	
+	private boolean estDansTirsRecus(Coordonnee c) {	// OK !
+		for(int i = 0; i < this.tirsRecus.length; i++)
+			if(c.equals(this.tirsRecus[i]))
+				return true;
 		return false;
 	}
 	
-	public Coordonnee[] getTirsRecus() { // Debug
-        return this.tirsRecus;
+	public boolean ajouteDansTirsRecus(Coordonnee c) {	// Ok !
+		this.nbTirsRecus += 1;
+		Coordonnee[] tirsRecusbis = new Coordonnee[nbTirsRecus];
+		for(int i = 0; i < this.tirsRecus.length; i++)
+			tirsRecusbis[i] = this.tirsRecus[i];
+		this.tirsRecus = tirsRecusbis;
+		this.tirsRecus[this.tirsRecus.length-1] = c;
+		return true;	// this est modifié, on renvoie true
 	}
-
-	public void setTirsRecus(Coordonnee[] tirs) {	// Debug
-        this.tirsRecus = tirs;
+	
+	public boolean recoitTir(Coordonnee c) {	// OK ?!
+		if (this.estDansTirsRecus(c))
+			return false;
+		this.ajouteDansTirsRecus(c);
+		for (int i = 0; i < this.navires.length; i++) {
+			if (this.navires[i].recoitTir(c))
+				return true;
+		}
+		return false;	
 	}
-
-	private boolean estDansTirsRecus(Coordonnee c) {
-		for (int i = 0; i < nbTirsRecus; i++)
-			if(this.tirsRecus[i].equals(c))
+	
+	public boolean estTouche(Coordonnee c) {	// OK ?!
+		for(int i = 0; i < this.navires.length; i++) {
+			if(navires[i].estTouche(c))
+				return true;
+		}
+		return false;
+	}
+	
+	public boolean estALEau(Coordonnee c) {		// semble OK
+		if(!this.estTouche(c))
+			return true;
+		return false;
+	}
+	
+	public boolean estCoule(Coordonnee c) {		// semble OK !
+		if(this.estTouche(c)) {
+			for(int i = 0; i < this.navires.length; i++)
+				if(this.navires[i].estCoule())
 					return true;
+		}
 		return false;
 	}
-
-	public boolean ajouteDansTirsRecus(Coordonnee c) {
-		tirsRecus[nbTirsRecus] = c;
-        nbTirsRecus += 1;
-        return false;
-	}
-	public boolean recoitTir(Coordonnee c) {
-		//On verifie si un tir n'a pas déja été effectué a ces coordonnées
-        if(estDansTirsRecus(c))throw new IllegalArgumentException();
-        // si il n'a pas encore était touché en c
-        if (!this.estTouche(c)) {
-            //on update le tableau partiesTouchees du navire
-            for (int i = 0; i < this.nbNavires; i++){
-                this.navires[i].recoitTir(c);
-            }
-            
-            ajouteDansTirsRecus(c);
-            return true;
-        }
-        return false;
-    }
-	
-	public boolean estTouche(Coordonnee c) {
-		for (int i = 0; i < this.nbNavires; i++){
-	           if (!this.navires[i].estTouche(c))
-	               return false;
-	       }
-	       return true;
-	   }
-	
-	public boolean estALEau(Coordonnee c) {
-		if (!this.estTouche(c))
-            return true;
-        return false;
-    }
-	
-	public boolean estCoule(Coordonnee c) {
-		if (this.estTouche(c)) {
-	           for (int j = 0; j < nbNavires; j++)
-	               if (this.navires[j].estCoule())
-	                   return true;
-	       }
-	       return false;
-	   }
 	
 	public boolean perdu() {
-		for (int j = 0; j < nbNavires; j++)
-            if (!this.navires[j].estCoule())
-                return false;
-        return true;
-    }
+		for(int i = 0; i < this.navires.length; i++)
+			if(!this.navires[i].estCoule())
+				return false;
+		return true;
+	}
+	
+	/// Accesseurs
+	public String getNavires() {	// OK !
+		if(this.navires.length == 0)
+			return "[]";
+		String content = "[" + this.navires[0];
+		for(int i = 1; i < this.navires.length; i++)
+			content += ",\n " + this.navires[i];
+		return content + "]";
+	}
+	
+	public String getTirsRecus() {	// OK !
+		if(this.tirsRecus.length == 0)
+			return "[]";
+		String content = "[" + this.tirsRecus[0];
+		for(int i = 1; i < this.tirsRecus.length; i++)
+			content += ", " + this.tirsRecus[i];
+		return content + "]";
+	}
 
-	//// Main pour terster les différentes méthodes ////
 	public static void main(String[] args) {
-		//int[] tailleNav = { 2, 4 };
-		Coordonnee[] tirs = { new Coordonnee(4,4), new Coordonnee(6,6) };
-		Coordonnee c = new Coordonnee(4, 4);
-		Coordonnee d = new Coordonnee(2, 2);
-		Coordonnee e = new Coordonnee(2, 7);
-		Navire n = new Navire(d, 3, false);
-		Navire o = new Navire(e, 4, true);
-		GrilleNavale plateau = new GrilleNavale(8);
-		plateau.ajouteNavire(n);
-		plateau.ajouteNavire(o);
-		System.out.println(plateau.toString());
-		plateau.ajouteDansTirsRecus(c);
-		System.out.println(plateau.toString());
+//		GrilleNavaleBis plateau = new GrilleNavaleBis(8, 0);
+//		System.out.println(plateau);
+//		Coordonnee a = new Coordonnee(1, 1);
+//		Coordonnee b = new Coordonnee(5, 5);
+//		Coordonnee bb = new Coordonnee(5, 6);
+//		Coordonnee bbb = new Coordonnee(5, 7);
+//		Coordonnee c = new Coordonnee(7, 7);
+//		Coordonnee d = new Coordonnee(9, 9);
+//		Coordonnee e = new Coordonnee(1, 2);
+//		Coordonnee f = new Coordonnee(1, 3);
+//		Coordonnee g = new Coordonnee(1, 4);
+//		System.out.println("NbNavire initial : " + plateau.nbNavires);
+//		
+//		/// Ajouter Navire OK !
+//		Navire n1 = new Navire(a, 3, false);
+//		Navire n2 = new Navire(b, 3, false);
+//		Navire n3 = new Navire(b, 3, false);
+//		plateau.ajouteNavire(n1);
+//		//System.out.println("nombre de navires sur le plateau : " + plateau.nbNavires);
+//		System.out.println("Liste des navires : " + plateau.getNavires());
+//		plateau.ajouteNavire(n2);
+//		//System.out.println("nombre de navires sur le plateau : " + plateau.nbNavires);
+//		System.out.println("Liste des navires : " + plateau.getNavires());
+//		plateau.ajouteNavire(n3);
+//		//System.out.println("nombre de navires sur le plateau : " + plateau.nbNavires);
+//		System.out.println("Liste des navires : " + plateau.getNavires());
+//		
+//		/// Est dans grille ? OK !
+////		System.out.println("a est dans la grille ? " + plateau.estDansGrille(a));
+////		System.out.println("b est dans la grille ? " + plateau.estDansGrille(b));
+////		System.out.println("c est dans la grille ? " + plateau.estDansGrille(c));
+////		System.out.println("c est dans la grille ? " + plateau.estDansGrille(d));
+//		
+//		/// Ajouter dans tirs recus OK !
+////		System.out.println("TirsRecus : " + plateau.getTirsRecus());
+////		plateau.ajouteDansTirsRecus(a);
+////		System.out.println("TirsRecus : " + plateau.getTirsRecus());
+////		plateau.ajouteDansTirsRecus(b);
+////		System.out.println("TirsRecus : " + plateau.getTirsRecus());
+//		
+//		// Est dans Tirs recus ? OK !
+////		System.out.println("a est dans tirs recus ? " + plateau.estDansTirsRecus(a));
+////		System.out.println("b est dans tirs recus ? " + plateau.estDansTirsRecus(b));
+////		System.out.println("c est dans tirs recus ? " + plateau.estDansTirsRecus(c));
+//		
+//		// RecoitTir(c)	// OK à priori
+//		System.out.println("Recoit tir en a ? " + plateau.recoitTir(a));
+//		System.out.println("Recoit tir en b ? " + plateau.recoitTir(b));
+//		System.out.println("Recoit tir en c ? " + plateau.recoitTir(c));
+//		System.out.println("Recoit tir en d ? " + plateau.recoitTir(d));
+//		System.out.println("Recoit tir en e ? " + plateau.recoitTir(e));
+//		System.out.println("Recoit tir en f ? " + plateau.recoitTir(f));
+//		System.out.println("Recoit tir en g ? " + plateau.recoitTir(g));
+//		System.out.println("TirsRecus : " + plateau.getTirsRecus());
+//		
+//		// Un des navires est Touché en (c) ? // OK à priori
+//		System.out.println("Un navire est-il touché en a ? " + plateau.estTouche(a));
+//		System.out.println("Un navire est-il touché en b ? " + plateau.estTouche(b));
+//		System.out.println("Un navire est-il touché en c ? " + plateau.estTouche(c));
+//		System.out.println("Un navire est-il touché en d ? " + plateau.estTouche(d));
+//		System.out.println("Un navire est-il touché en e ? " + plateau.estTouche(e));
+//		System.out.println("Un navire est-il touché en f ? " + plateau.estTouche(f));
+//		System.out.println("Un navire est-il touché en g ? " + plateau.estTouche(g));
+//		
+//		// Est à l'eau (c) ?	// semble OK
+//		System.out.println("Le tir en a est-il à l'eau ? " + plateau.estALEau(a));
+//		System.out.println("Le tir en b est-il à l'eau ? " + plateau.estALEau(b));
+//		System.out.println("Le tir en c est-il à l'eau ? " + plateau.estALEau(c));
+//		System.out.println("Le tir en d est-il à l'eau ? " + plateau.estALEau(d));
+//		System.out.println("Le tir en e est-il à l'eau ? " + plateau.estALEau(e));
+//		System.out.println("Le tir en f est-il à l'eau ? " + plateau.estALEau(f));
+//		System.out.println("Le tir en g est-il à l'eau ? " + plateau.estALEau(g));
+//		
+//		// Est coulé ?	// semble OK !
+//		System.out.println("est coulé en a ? " + plateau.estCoule(a));
+//		System.out.println("est coulé en b ? " + plateau.estCoule(b));
+//		System.out.println("est coulé en c ? " + plateau.estCoule(c));
+//		System.out.println("est coulé en d ? " + plateau.estCoule(d));
+//		System.out.println("est coulé en e ? " + plateau.estCoule(e));
+//		System.out.println("est coulé en f ? " + plateau.estCoule(f));
+//		
+//		// Perdu ?	// OK !
+//		System.out.println("Perdu ? " + plateau.perdu());
+//		plateau.recoitTir(bb);
+//		plateau.recoitTir(bbb);
+//		System.out.println("TirsRecus : " + plateau.getTirsRecus());
+//		System.out.println("Perdu ? " + plateau.perdu());
+//		
+//		System.out.println(plateau);
+		
+		/// Plateau aléatoire
+		int tN[] = {2, 3, 3, 4, 5};
+		GrilleNavale plateauAl = new GrilleNavale(10, tN);
+		System.out.println(plateauAl);
+		plateauAl.placementAuto(tN);
+		System.out.println(plateauAl);
+		System.out.println(plateauAl.getNavires());
+		
+		Coordonnee a = new Coordonnee(1, 1);
+		Coordonnee b = new Coordonnee(2, 3);
+		Coordonnee c = new Coordonnee(5, 6);
+		Coordonnee d = new Coordonnee(4, 9);
+		Coordonnee e = new Coordonnee(7, 7);
+		Coordonnee f = new Coordonnee(6, 2);
+		Coordonnee g = new Coordonnee(1, 7);
+		Coordonnee h = new Coordonnee(3, 1);
+		Coordonnee i = new Coordonnee(4, 4);
+		plateauAl.recoitTir(a);
+		plateauAl.recoitTir(b);
+		plateauAl.recoitTir(c);
+		plateauAl.recoitTir(d);
+		plateauAl.recoitTir(e);
+		plateauAl.recoitTir(f);
+		plateauAl.recoitTir(g);
+		plateauAl.recoitTir(h);
+		plateauAl.recoitTir(i);
+		System.out.println(plateauAl);
+		
 	}
 
 }
