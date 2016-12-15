@@ -92,13 +92,13 @@ public class GrilleNavale {
 					return false;
 			}
 			this.nbNavires += 1;
-			System.out.println("Nouveau navire n° : " + this.nbNavires);
+			//System.out.println("Nouveau navire n° : " + this.nbNavires);
 			Navire[] naviresbis = new Navire[nbNavires];
 			for(int i = 0; i < this.navires.length; i++)
 				naviresbis[i] = this.navires[i];
 			this.navires = naviresbis;
 			this.navires[this.navires.length-1] = n;
-			System.out.println("longueur tableau navire : " + this.navires.length);
+			//System.out.println("longueur tableau navire : " + this.navires.length);
 			return true;
 		}
 		return false;
@@ -291,7 +291,7 @@ public class GrilleNavale {
 		
 		/// Plateau aléatoire
 		int tN[] = {2, 3, 3, 4, 5};
-		GrilleNavale plateauAl = new GrilleNavale(6, tN);
+		GrilleNavale plateauAl = new GrilleNavale(10, tN);
 		System.out.println(plateauAl);
 		plateauAl.placementAuto(tN);
 		System.out.println(plateauAl);
