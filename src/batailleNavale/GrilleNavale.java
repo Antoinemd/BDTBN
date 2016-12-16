@@ -189,6 +189,10 @@ public class GrilleNavale {
 		return content + "]";
 	}
 	
+	public int getTailleNavires() {
+		return(this.navires.length);
+	}
+	
 	public String getTirsRecus() {	// OK !
 		if(this.tirsRecus.length == 0)
 			return "[]";
