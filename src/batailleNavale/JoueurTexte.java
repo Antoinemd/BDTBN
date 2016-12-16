@@ -35,6 +35,7 @@ public class JoueurTexte extends Joueur {
 	
 	public void debutAttaque(){
 		Coordonnee c = new Coordonnee(0, 0);
+		String coordonneeS = "";
 		System.out.println("A votre tour d'attaquer !" + this.getNom());
 		do {
 			Scanner sc = new Scanner(System.in);
@@ -42,11 +43,13 @@ public class JoueurTexte extends Joueur {
 			System.out.println("Entrez une coordonnée : ");
 			System.out.println("taille de la grille : " + super.getGrille().getTailleGrille());
 			try {
-				String coordonneeS = sc.nextLine();		// Coordonnée type A1
+				// Ajouter une exception en cas d'espace !
+				coordonneeS = sc.nextLine();		// Coordonnée type A1
 				c = new Coordonnee(coordonneeS);	// on créé une nouvelle coordonnee de ligne li et colonne cl
 			} catch(IllegalArgumentException | StringIndexOutOfBoundsException e) {System.out.println("Veuillez saisir une coordonnée valide !");}
 			
-		} while(!(super.getGrille().getEstDansGrille(c))|| super.getGrilleAdversaire().getEstDansTirsRecus(c));
+		} while(!(super.getGrille().getEstDansGrille(c))
+				|| super.getGrilleAdversaire().getEstDansTirsRecus(c));
 		this.attaque(c);
 	}
 

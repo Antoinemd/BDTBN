@@ -29,13 +29,18 @@ public class Coordonnee {
         }
 
         public Coordonnee(String s) {
+        	// Colonne
         	s = s.toUpperCase();
         	char colonne = s.charAt(0);	// on récupère le premier caractère de la string...
 			this.colonne = (int)(colonne -'A');    // pour le convertir en int (cl)
-			try {
-				this.ligne = Integer.parseInt(s.substring(1)) - 1;
-			} catch(StringIndexOutOfBoundsException | NumberFormatException e) {System.out.println("Expression incorrecte !");}
-        }
+			
+			// Ligne
+			/// A ajouter : Exception en cas d'espace !
+					try {
+						this.ligne = Integer.parseInt(s.substring(1)) - 1;
+					} catch(StringIndexOutOfBoundsException | NumberFormatException e) {System.out.println("Expression incorrecte !");}
+				}
+			
 
         public String toString() {
                 // Retourne une String exprimant this dans le systeme de coordonnee de
@@ -154,9 +159,9 @@ public class Coordonnee {
 //                System.out.println(Kris.PTContent() + "\n");
 //                
 //                
-                Coordonnee a = new Coordonnee(0,0);
-                Coordonnee b = new Coordonnee(0,1);
-                Coordonnee c = new Coordonnee(1,1);
+                Coordonnee a = new Coordonnee("DD");
+                Coordonnee b = new Coordonnee("EE");
+                Coordonnee c = new Coordonnee("AD");
                 Coordonnee d = new Coordonnee(1,2);
                 Coordonnee e = new Coordonnee(2,2);
                 Coordonnee f = new Coordonnee(2,3);
