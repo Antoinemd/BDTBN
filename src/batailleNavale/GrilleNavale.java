@@ -50,7 +50,7 @@ public class GrilleNavale {
 		}
 		
 		for (int i = 0; i < this.taille; i++) {
-			map += "\n" + (i /*+ 1*/);
+			map += "\n" + (i + 1);
 			for (int j = 0; j < this.taille; j++){
 				boolean dejaTire = false;
 				Coordonnee currentC = new Coordonnee(i, j);

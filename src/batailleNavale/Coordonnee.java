@@ -33,7 +33,7 @@ public class Coordonnee {
         	char colonne = s.charAt(0);	// on récupère le premier caractère de la string...
 			this.colonne = (int)(colonne -'A');    // pour le convertir en int (cl)
 			try {
-				this.ligne = Integer.parseInt(s.substring(1));
+				this.ligne = Integer.parseInt(s.substring(1)) - 1;
 			} catch(StringIndexOutOfBoundsException | NumberFormatException e) {System.out.println("Expression incorrecte !");}
         }
 
@@ -41,7 +41,7 @@ public class Coordonnee {
                 // Retourne une String exprimant this dans le systeme de coordonnee de
                 // la bataille navale (exemple : "C6")
         		char c = (char) (this.colonne +'A');    
-        		String s = "" + c + (this.ligne);
+        		String s = "" + c + (this.ligne + 1);
         		return(s);
         }
 
@@ -155,12 +155,12 @@ public class Coordonnee {
 //                
 //                
                 Coordonnee a = new Coordonnee(0,0);
-                Coordonnee b = new Coordonnee("D2");
-                Coordonnee c = new Coordonnee("D3");
-                Coordonnee d = new Coordonnee("D4");
-                Coordonnee e = new Coordonnee("D5");
-                Coordonnee f = new Coordonnee("D6");
-                Coordonnee g = new Coordonnee("D7");
+                Coordonnee b = new Coordonnee(0,1);
+                Coordonnee c = new Coordonnee(1,1);
+                Coordonnee d = new Coordonnee(1,2);
+                Coordonnee e = new Coordonnee(2,2);
+                Coordonnee f = new Coordonnee(2,3);
+                Coordonnee g = new Coordonnee(3,3);
                 Coordonnee h = new Coordonnee("D8");
                 Coordonnee i = new Coordonnee("D9");
                 Coordonnee j = new Coordonnee("D10");
