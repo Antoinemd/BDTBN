@@ -29,10 +29,33 @@ public class JoueurAuto extends Joueur {
 	public void debutAttaque() {
 		System.out.println("A votre tour d'attaquer !" + this.getNom());
 		Coordonnee c = new Coordonnee(0, 0);
-		do {
-			 c = new Coordonnee((int)(Math.random() * (super.getGrille().getTailleGrille())) + 1, (int)(Math.random() * (super.getGrille().getTailleGrille())) + 1);
-		} while(super.getGrilleAdversaire().getEstDansTirsRecus(c));
-		this.attaque(c);
+		
+		// Gestion du premier tir
+		if (super.getGrilleAdversaire().getTableauTirsRecus().length < 1) { // On vérifie si on a déjà tiré sur l'adversaire
+			do {
+				c = new Coordonnee((int)(Math.random() * (super.getGrille().getTailleGrille())) + 1, (int)(Math.random() * (super.getGrille().getTailleGrille())) + 1);
+				}
+				while(super.getGrilleAdversaire().getEstDansTirsRecus(c));
+				this.attaque(c);
+		}
+		// Gestion d'un tir où 'c' est dans l'eau
+		for (int i = 0; i < super.getGrilleAdversaire().getTableauTirsRecus().length; i++) {
+			if (super.getGrilleAdversaire().getTableauTirsRecus()[i] == c){
+				if (super.getGrilleAdversaire().estALEau(c))
+					do {
+				c = new Coordonnee((int)(Math.random() * (super.getGrille().getTailleGrille())) + 1, (int)(Math.random() * (super.getGrille().getTailleGrille())) + 1);
+				} 
+				while(super.getGrilleAdversaire().getEstDansTirsRecus(c));
+				this.attaque(c);
+			}
+		}
+		// Gestion d'un tir où 'c' touche un bateau
+//		if (super.getGrilleAdversaire().estTouche(c)) {
+//			do {
+//				c = super.getGrilleAdversaire()
+//			}
+//		}
+			
 	}
 
 	public static void main(String[] args) {

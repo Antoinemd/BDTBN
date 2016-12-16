@@ -56,6 +56,10 @@ public class Navire {
 		return this.nbTouchees;
 	}
 	
+	public boolean getEstHorizontal() {
+		return(this.estHorizontal);
+	}
+	
 	public String PTContent() {		// Contenu du tableau de coordonnees partiesTouchees
 		if(this.partiesTouchees.length == 0)
 			return "[]";

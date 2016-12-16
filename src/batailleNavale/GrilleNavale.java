@@ -206,6 +206,10 @@ public class GrilleNavale {
 		return(this.estDansTirsRecus(c));
 	}
 	
+	public Coordonnee[] getTableauTirsRecus() { // getter pour récuperer le tableau des tirsRecus
+		return (this.tirsRecus);
+	}
+	
 	
 	public static void main(String[] args) {
 //		GrilleNavaleBis plateau = new GrilleNavaleBis(8, 0);
