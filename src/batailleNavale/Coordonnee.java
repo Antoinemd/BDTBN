@@ -48,7 +48,7 @@ public class Coordonnee {
                 // Retourne une String exprimant this dans le systeme de coordonnee de
                 // la bataille navale (exemple : "C6")
 
-                String s = "";
+               /* String s = "";
                 String col = "";
                 switch (this.colonne) {
                 case 1 : col = "A"; break;
@@ -79,7 +79,10 @@ public class Coordonnee {
                 case 26 : col = "Z"; break;
                 }
                 s += col + this.ligne;
-                return s;
+                return s;*/
+        		char c = (char) (this.colonne +'A'- 1);    
+        		String s = "" + c + this.ligne;
+        		return(s);
         }
 
         public int getLigne() {

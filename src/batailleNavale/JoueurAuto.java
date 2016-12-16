@@ -15,13 +15,15 @@ public class JoueurAuto extends Joueur {
 	}
 	
 	protected void retourAttaque(Coordonnee c, int etat) {
-		System.out.println("Le tir de " + this.getNom() + " en " + c + this.resultatAttaque(etat));
+		System.out.println("Le tir de " + this.getNom() + " en " + c + this.resultatAttaque(etat) + "\n");
 		// Update Grid
-		System.out.println("Grille Attaquant : \n" + this.getGrille());
+		//System.out.println("Retour Attaque : Grille " + this.getNom() + ": \n" + this.getGrille());
 	}
 	
 	protected void retourDefense(Coordonnee c, int etat) {
 		System.out.println(this.getNom() + " est attaqué ! ");
+		// Update Grid
+		System.out.println("Retour Defense : Grille " + this.getNom() + " : \n" + this.getGrille());
 	}
 	
 	public void debutAttaque() {
@@ -34,18 +36,21 @@ public class JoueurAuto extends Joueur {
 	}
 
 	public static void main(String[] args) {
+		
 
 		int[] tN = {1};
 		GrilleNavale g1 = new GrilleNavale(5, tN);
 		g1.placementAuto(tN);
-		System.out.println("Grille joueur 1 : \n" + g1 + "\n");
 		
 		GrilleNavale g2 = new GrilleNavale(5, tN);
 		g2.placementAuto(tN);
-		System.out.println("Grille joueur 2 : \n" + g2 + "\n");
+		
 		Joueur j1 = new JoueurTexte(g1, "Kris");
 		Joueur ia = new JoueurAuto(g2, "ia");
 		j1.jouerAvec(ia);
+		
+		System.out.println("Grille " + j1.getNom() +" : \n" + g1 + "\n");
+		System.out.println("Grille " + ia.getNom() +" : \n" + g2 + "\n");
 		
 		j1.debutAttaque();
 

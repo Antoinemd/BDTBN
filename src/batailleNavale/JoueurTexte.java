@@ -22,39 +22,53 @@ public class JoueurTexte extends Joueur {
 	}
 	
 	protected void retourAttaque(Coordonnee c, int etat) {
-		System.out.println("Le tir de " + this.getNom() + " en " + c + this.resultatAttaque(etat));
+		System.out.println("Le tir de " + this.getNom() + " en " + c + this.resultatAttaque(etat) + "\n");
 		// Update Grid
-		System.out.println("Grille Attaquant : \n" + this.getGrille());
+		//System.out.println("Retour Attaque : Grille " + this.getNom() + " : \n" + this.getGrille());
 	}
 	
 	protected void retourDefense(Coordonnee c, int etat) {
 		System.out.println(this.getNom() + " est attaqué ! ");
+		// Update Grid
+		System.out.println(" Retour Defense : Grille " + this.getNom() + " : \n" + this.getGrille());
 	}
 	
 	public void debutAttaque(){
 		System.out.println("A votre tour d'attaquer !" + this.getNom());
-		Scanner sc = new Scanner(System.in);
-		String cls = sc.nextLine();
-		int li = sc.nextInt();
-		// int cli = Integer.parseInt(cls.substring(0, 1));
-		char caractere = cls.charAt(0);
-		int cli = (int)(caractere - 'A');
-		Coordonnee c = new Coordonnee(li, cli);
+		int li = 0;
+		int cl = 0;
+		do {
+			Scanner sc = new Scanner(System.in);
+			
+			System.out.println("Entrez une colonne : ");
+			String cls = sc.nextLine();		// Colonne String à saisir
+			cls = cls.toUpperCase();
+			
+			System.out.println("Entrez une ligne : ");
+			li = sc.nextInt();			// Ligne (int) à saisir (li)
+			char caractere = cls.charAt(0);	// on récupère le premier caractère de la string...
+			cl = (int)(caractere -'A'+ 1);    // pour le convertir en int (cl)
+			
+			if(cl < 1 || cl > super.getGrille().getTailleGrille())
+				System.out.println("Coordonnées invalides ! Recommencez ! \n");
+		} while(cl < 1 || cl > super.getGrille().getTailleGrille());
+		Coordonnee c = new Coordonnee(li, cl);	// on créé une nouvelle coordonnee de ligne li et colonne cl
 		this.attaque(c);
 	}
 
 	public static void main(String[] args) {
-		int[] tN = {1};
+		int[] tN = {2, 3, 3, 4, 5};
 		GrilleNavale g1 = new GrilleNavale(10, tN);
 		g1.placementAuto(tN);
-		System.out.println("Grille joueur 1 : \n" + g1 + "\n");
 		
 		GrilleNavale g2 = new GrilleNavale(10, tN);
 		g2.placementAuto(tN);
-		System.out.println("Grille joueur 2 : \n" + g2 + "\n");
 		Joueur j1 = new JoueurTexte(g1, "Kris");
 		Joueur j2 = new JoueurTexte(g2, "Mik");
 		j1.jouerAvec(j2);
+		
+		System.out.println("Grille " + j1.getNom() +" : \n" + g1 + "\n");
+		System.out.println("Grille " + j2.getNom() +" : \n" + g2 + "\n");
 		
 		j1.debutAttaque();
 	}
