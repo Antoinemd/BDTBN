@@ -64,7 +64,7 @@ public abstract class Joueur {
 		switch(etat) {
 			case 1 : resultatAttaque = " touche un navire adverse !"; break;
 			case 2 : resultatAttaque = " coule un navire adverse !"; break;
-			case 3 : resultatAttaque = " tombe à l'eau !";
+			case 3 : resultatAttaque = " tombe à l'eau !"; break;
 		}
 		return resultatAttaque;
 	}

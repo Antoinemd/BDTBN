@@ -22,57 +22,38 @@ public class Coordonnee {
          */
 
         public Coordonnee(int ligne, int colonne) {
-
                 // Permet d'obtenir une coordonnee de ligne i et de colonne j (indices
                 // Java)
-        		/*if (ligne < 1 || colonne < 1 || ligne >= 26 || colonne >= 26)
-        			throw new IllegalArgumentException("Valeur incorrecte");*/
-        			// exception si les coordonnees sont incorrectes (incompletes, etc.)
-                this.ligne = ligne;
+                this.ligne = ligne + 1;
                 this.colonne = colonne;
         }
 
         public Coordonnee(String s) {
-
-//            this.colonne = Integer.parseInt(s.substring(0, 1));
-//            this.ligne = Integer.parseInt(s.substring(1));
-//
-//        	// Permet d'obtenir une coordonnee d'apres son expression donnee par s
-//                // dans le systeme de coordonnees de la bataille navale
-//            	if (ligne < 1 || colonne < 1 || ligne > 26 || colonne > 26)
-//            		throw new IllegalArgumentException("Valeur incorrecte");
-//            		// exception si les coordonnees sont incorrectes (incompletes, etc.)
         	s = s.toUpperCase();
         	char colonne = s.charAt(0);	// on récupère le premier caractère de la string...
-			this.colonne = (int)(colonne -'A'+ 1);    // pour le convertir en int (cl)
+			this.colonne = (int)(colonne -'A');    // pour le convertir en int (cl)
 			this.ligne = Integer.parseInt(s.substring(1, 2));
         }
 
         public String toString() {
-
                 // Retourne une String exprimant this dans le systeme de coordonnee de
                 // la bataille navale (exemple : "C6")
-
-        		char c = (char) (this.colonne +'A'- 1);    
+        		char c = (char) (this.colonne +'A');    
         		String s = "" + c + this.ligne;
         		return(s);
         }
 
         public int getLigne() {
-
                 // Accesseur en lecture pour l'indice de ligne
-
                 return this.ligne;
         }
 
         public int getColonne() {
-
                 // Accesseur en lecture pour l'indice de colonne
-
                 return this.colonne;
         }
 
-        public boolean equals(Object obj) {	// À vérifier !!
+        public boolean equals(Object obj) {
 
                 // Retourne true si et seulement si this est equivalent a obj
         		if(!(obj instanceof Coordonnee))
@@ -86,10 +67,8 @@ public class Coordonnee {
         }
 
         public boolean voisine(Coordonnee c) {
-
             // Retourne true si et seulement si this est une coordonnee voisine
             // (verticalement ou horizontalement) de c
-
             if ((this.ligne - c.ligne == 1 || this.ligne - c.ligne == -1)
                             && (this.colonne - c.colonne == 1 || this.colonne - c.colonne == -1))
                     return false;
@@ -173,7 +152,7 @@ public class Coordonnee {
 //                System.out.println(Kris.PTContent() + "\n");
 //                
 //                
-                Coordonnee c = new Coordonnee("D4BCD5");
+                Coordonnee c = new Coordonnee(0, 0);
                 System.out.println(c);
                 
 

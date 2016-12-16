@@ -16,6 +16,8 @@ public class GrilleNavale {
 		this.nbTirsRecus = 0;
 		this.tirsRecus = new Coordonnee[this.nbTirsRecus];
 		
+		// On tri le tableau de navires de manière décroissante afin que le plus grand navire soit placé en premier
+		// De cette manière, il y aura moins de chance que le plateau ne parvienne pas à se créer.
 		if(taillesNavires.length > 1) {
 			int k = 0; // intermédiaire
 			boolean permut;	// on inverse ou non
@@ -42,16 +44,16 @@ public class GrilleNavale {
 	}
 	
 	/// Méthodes
-	public String toString() { // Andy : je pars du principe que la grille est carrée
+	public String toString() {
 		String map = "\t";
 		for (int i = 0; i < this.taille; i++){
 		char c = (char) (i + 'A');
 		map += c + "\t";
 		}
 		
-		for (int i = 1; i < this.taille + 1; i++) {
-			map += "\n" + i;
-			for (int j = 1; j < this.taille + 1; j++){
+		for (int i = 0; i < this.taille; i++) {
+			map += "\n" + (i + 1);
+			for (int j = 0; j < this.taille; j++){
 				boolean dejaTire = false;
 				Coordonnee currentC = new Coordonnee(i, j);
 				for (int k = 0; k < nbTirsRecus; k++) {
@@ -314,25 +316,25 @@ public class GrilleNavale {
 		System.out.println(plateauAl);
 		System.out.println(plateauAl.getNavires());
 		
-		Coordonnee a = new Coordonnee(1, 1);
-		Coordonnee b = new Coordonnee(2, 3);
-		Coordonnee c = new Coordonnee(5, 6);
-		Coordonnee d = new Coordonnee(4, 9);
-		Coordonnee e = new Coordonnee(7, 7);
-		Coordonnee f = new Coordonnee(6, 2);
-		Coordonnee g = new Coordonnee(1, 7);
-		Coordonnee h = new Coordonnee(3, 1);
-		Coordonnee i = new Coordonnee(4, 4);
-		plateauAl.recoitTir(a);
-		plateauAl.recoitTir(b);
-		plateauAl.recoitTir(c);
-		plateauAl.recoitTir(d);
-		plateauAl.recoitTir(e);
-		plateauAl.recoitTir(f);
-		plateauAl.recoitTir(g);
-		plateauAl.recoitTir(h);
-		plateauAl.recoitTir(i);
-		System.out.println(plateauAl);
+//		Coordonnee a = new Coordonnee(1, 1);
+//		Coordonnee b = new Coordonnee(2, 3);
+//		Coordonnee c = new Coordonnee(5, 6);
+//		Coordonnee d = new Coordonnee(4, 9);
+//		Coordonnee e = new Coordonnee(7, 7);
+//		Coordonnee f = new Coordonnee(6, 2);
+//		Coordonnee g = new Coordonnee(1, 7);
+//		Coordonnee h = new Coordonnee(3, 1);
+//		Coordonnee i = new Coordonnee(4, 4);
+//		plateauAl.recoitTir(a);
+//		plateauAl.recoitTir(b);
+//		plateauAl.recoitTir(c);
+//		plateauAl.recoitTir(d);
+//		plateauAl.recoitTir(e);
+//		plateauAl.recoitTir(f);
+//		plateauAl.recoitTir(g);
+//		plateauAl.recoitTir(h);
+//		plateauAl.recoitTir(i);
+//		System.out.println(plateauAl);
 		
 	}
 

@@ -44,7 +44,7 @@ public class JoueurTexte extends Joueur {
 				String coordonneeS = sc.nextLine();		// Coordonnée type A1
 				c = new Coordonnee(coordonneeS);	// on créé une nouvelle coordonnee de ligne li et colonne cl
 			} catch(IllegalArgumentException e) {System.out.println("Veuillez saisir une coordonnée valide !");}
-		} while(c.getColonne() < 1 || c.getColonne() > super.getGrille().getTailleGrille() || c.getLigne() < 1 || c.getLigne() > super.getGrille().getTailleGrille());
+		} while(c.getColonne() < 0 || c.getColonne() > super.getGrille().getTailleGrille() || c.getLigne() < 0 || c.getLigne() > super.getGrille().getTailleGrille());
 		this.attaque(c);
 	}
 

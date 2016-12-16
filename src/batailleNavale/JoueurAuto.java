@@ -33,7 +33,7 @@ public class JoueurAuto extends Joueur {
 			// Premier Tir
 			//if (super.getGrilleAdversaire().getTableauTirsRecus().length < 1) {
 				do {
-					c = new Coordonnee((int)(Math.random() * (super.getGrille().getTailleGrille())) + 1, (int)(Math.random() * (super.getGrille().getTailleGrille())) + 1);
+					c = new Coordonnee((int)(Math.random() * (super.getGrille().getTailleGrille())), (int)(Math.random() * (super.getGrille().getTailleGrille())));
 				} while(super.getGrilleAdversaire().getEstDansTirsRecus(c));
 				this.attaque(c);
 			//}
@@ -64,11 +64,11 @@ public class JoueurAuto extends Joueur {
 	public static void main(String[] args) {
 		
 
-		int[] tN = {2, 3, 3, 4, 5};
-		GrilleNavale g1 = new GrilleNavale(10, tN);
+		int[] tN = {3, 3};
+		GrilleNavale g1 = new GrilleNavale(5, tN);
 		g1.placementAuto(tN);
 		
-		GrilleNavale g2 = new GrilleNavale(10, tN);
+		GrilleNavale g2 = new GrilleNavale(5, tN);
 		g2.placementAuto(tN);
 		
 		Joueur j1 = new JoueurTexte(g1, "Kris");

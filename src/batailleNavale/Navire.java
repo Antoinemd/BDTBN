@@ -30,10 +30,10 @@ public class Navire {
 		int longueur;
 		s += "Navire (" + this.debut.toString() + ", ";
 		if (this.estHorizontal) {
-			longueur = (this.fin.getColonne() - this.debut.getColonne()) + 1; // +1 pour compenser le -1 du constructeur
+			longueur = (this.fin.getColonne() - this.debut.getColonne()); // +1 pour compenser le -1 du constructeur
 			s += longueur + ", Horizontal)";
 		} else {
-			longueur = (this.fin.getLigne() - this.debut.getLigne()) + 1; // Pareil
+			longueur = (this.fin.getLigne() - this.debut.getLigne()); // Pareil
 			s += longueur + ", Vertical)";
 		}
 		return s;
