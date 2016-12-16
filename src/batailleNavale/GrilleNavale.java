@@ -16,8 +16,6 @@ public class GrilleNavale {
 		this.nbTirsRecus = 0;
 		this.tirsRecus = new Coordonnee[this.nbTirsRecus];
 		
-		// On tri le tableau de navires de manière décroissante afin que le plus grand navire soit placé en premier
-		// De cette manière, il y aura moins de chance que le plateau ne parvienne pas à se créer.
 		if(taillesNavires.length > 1) {
 			int k = 0; // intermédiaire
 			boolean permut;	// on inverse ou non

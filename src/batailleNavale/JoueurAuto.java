@@ -64,11 +64,11 @@ public class JoueurAuto extends Joueur {
 	public static void main(String[] args) {
 		
 
-		int[] tN = {3, 3};
-		GrilleNavale g1 = new GrilleNavale(5, tN);
+		int[] tN = {2, 3, 3, 4, 5};
+		GrilleNavale g1 = new GrilleNavale(10, tN);
 		g1.placementAuto(tN);
 		
-		GrilleNavale g2 = new GrilleNavale(5, tN);
+		GrilleNavale g2 = new GrilleNavale(10, tN);
 		g2.placementAuto(tN);
 		
 		Joueur j1 = new JoueurTexte(g1, "Kris");

@@ -24,7 +24,7 @@ public class Coordonnee {
         public Coordonnee(int ligne, int colonne) {
                 // Permet d'obtenir une coordonnee de ligne i et de colonne j (indices
                 // Java)
-                this.ligne = ligne + 1;
+                this.ligne = ligne;
                 this.colonne = colonne;
         }
 
