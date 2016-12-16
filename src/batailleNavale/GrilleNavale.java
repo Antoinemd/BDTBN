@@ -106,15 +106,20 @@ public class GrilleNavale {
 	
 	public void placementAuto(int[] taillesNavires) {
 		int i = 0;
-		while(i < taillesNavires.length) {
-			int nbNaviresInit = this.nbNavires;	// Nomre de navires avant la création d'un nouveau navire qui sera placé aléatoirement
-			boolean estVertical = (Math.random() < 0.5);
-			Coordonnee c = new Coordonnee((int)(Math.random() * (taille - taillesNavires[i])), (int)(Math.random() * (taille - taillesNavires[i])));
-			Navire n = new Navire(c, taillesNavires[i], estVertical);
-			this.ajouteNavire(n);
-			if(this.nbNavires > nbNaviresInit)
-				i++;
-		}
+		long start = System.currentTimeMillis();
+		long end = 1000;
+
+			while(i < taillesNavires.length && (System.currentTimeMillis()-start) < end) {
+				int nbNaviresInit = this.nbNavires;	// Nomre de navires avant la création d'un nouveau navire qui sera placé aléatoirement
+				boolean estVertical = (Math.random() < 0.5);
+				Coordonnee c = new Coordonnee((int)(Math.random() * (taille - taillesNavires[i])), (int)(Math.random() * (taille - taillesNavires[i])));
+				Navire n = new Navire(c, taillesNavires[i], estVertical);
+				this.ajouteNavire(n);
+				if(this.nbNavires > nbNaviresInit)
+					i++;
+			}
+			if(i < taillesNavires.length && (System.currentTimeMillis()-start) >= end)
+				System.out.println("Trop de navires / Navires trop grands par rapport au plateau de jeu. Veuillez redémarrer le jeu.");
 	}
 	
 	private boolean estDansGrille(Coordonnee c) { 	// OK !

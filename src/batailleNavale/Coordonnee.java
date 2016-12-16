@@ -33,7 +33,7 @@ public class Coordonnee {
         	char colonne = s.charAt(0);	// on récupère le premier caractère de la string...
 			this.colonne = (int)(colonne -'A');    // pour le convertir en int (cl)
 			try {
-				this.ligne = Integer.parseInt(s.substring(1, 2));
+				this.ligne = Integer.parseInt(s.substring(1));
 			} catch(StringIndexOutOfBoundsException | NumberFormatException e) {System.out.println("Expression incorrecte !");}
         }
 
@@ -154,8 +154,26 @@ public class Coordonnee {
 //                System.out.println(Kris.PTContent() + "\n");
 //                
 //                
-                Coordonnee c = new Coordonnee("1D");
+                Coordonnee a = new Coordonnee(0,0);
+                Coordonnee b = new Coordonnee("D2");
+                Coordonnee c = new Coordonnee("D3");
+                Coordonnee d = new Coordonnee("D4");
+                Coordonnee e = new Coordonnee("D5");
+                Coordonnee f = new Coordonnee("D6");
+                Coordonnee g = new Coordonnee("D7");
+                Coordonnee h = new Coordonnee("D8");
+                Coordonnee i = new Coordonnee("D9");
+                Coordonnee j = new Coordonnee("D10");
+                System.out.println(a);
+                System.out.println(b);
                 System.out.println(c);
+                System.out.println(d);
+                System.out.println(e);
+                System.out.println(f);
+                System.out.println(g);
+                System.out.println(h);
+                System.out.println(i);
+                System.out.println(j);
                 
 
         }
