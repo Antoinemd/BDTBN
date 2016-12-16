@@ -11,14 +11,10 @@ public class Navire {
 	public Navire(Coordonnee debut, int longueur, boolean estVertical) {
 		this.debut = debut;
 		if (estVertical) {
-			this.fin = new Coordonnee(this.debut.getLigne() + longueur - 1, this.debut.getColonne()); // Pourquoi
-																										// -1
-																										// ?
+			this.fin = new Coordonnee(this.debut.getLigne() + longueur - 1, this.debut.getColonne());
 			this.estHorizontal = false;
 		} else {
-			this.fin = new Coordonnee(this.debut.getLigne(), this.debut.getColonne() + longueur - 1); // Pourquoi
-																										// -1
-																										// ?
+			this.fin = new Coordonnee(this.debut.getLigne(), this.debut.getColonne() + longueur - 1); 
 			this.estHorizontal = true;
 		}
 		partiesTouchees = new Coordonnee[longueur];

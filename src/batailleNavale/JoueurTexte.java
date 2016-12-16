@@ -40,12 +40,13 @@ public class JoueurTexte extends Joueur {
 			Scanner sc = new Scanner(System.in);
 			
 			System.out.println("Entrez une coordonnée : ");
+			System.out.println("taille de la grille : " + super.getGrille().getTailleGrille());
 			try {
 				String coordonneeS = sc.nextLine();		// Coordonnée type A1
 				c = new Coordonnee(coordonneeS);	// on créé une nouvelle coordonnee de ligne li et colonne cl
 			} catch(IllegalArgumentException | StringIndexOutOfBoundsException e) {System.out.println("Veuillez saisir une coordonnée valide !");}
 			
-		} while(c.getColonne() < 0 || c.getColonne() > super.getGrille().getTailleGrille() || c.getLigne() < 0 || c.getLigne() > super.getGrille().getTailleGrille());
+		} while(!(super.getGrille().getEstDansGrille(c))|| super.getGrilleAdversaire().getEstDansTirsRecus(c));
 		this.attaque(c);
 	}
 

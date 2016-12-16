@@ -41,7 +41,7 @@ public class Coordonnee {
                 // Retourne une String exprimant this dans le systeme de coordonnee de
                 // la bataille navale (exemple : "C6")
         		char c = (char) (this.colonne +'A');    
-        		String s = "" + c + this.ligne;
+        		String s = "" + c + (this.ligne);
         		return(s);
         }
 

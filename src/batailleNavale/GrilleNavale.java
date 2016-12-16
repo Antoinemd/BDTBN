@@ -17,7 +17,7 @@ public class GrilleNavale {
 		this.tirsRecus = new Coordonnee[this.nbTirsRecus];
 		
 		if(taillesNavires.length > 1) {
-			int k = 0; // intermédiaire
+			int k = 0; // intermédiaire pour intervertir deux valeurs
 			boolean permut;	// on inverse ou non
 			do {
 				permut = false;
@@ -50,7 +50,7 @@ public class GrilleNavale {
 		}
 		
 		for (int i = 0; i < this.taille; i++) {
-			map += "\n" + (i + 1);
+			map += "\n" + (i /*+ 1*/);
 			for (int j = 0; j < this.taille; j++){
 				boolean dejaTire = false;
 				Coordonnee currentC = new Coordonnee(i, j);
@@ -106,7 +106,7 @@ public class GrilleNavale {
 	
 	public void placementAuto(int[] taillesNavires) {
 		int i = 0;
-		long start = System.currentTimeMillis();
+		long start = System.currentTimeMillis();	// Timer pour sortir de la boucle si on n'arrive pas à créer le plateau de jeu
 		long end = 1000;
 
 			while(i < taillesNavires.length && (System.currentTimeMillis()-start) < end) {
@@ -123,7 +123,7 @@ public class GrilleNavale {
 	}
 	
 	private boolean estDansGrille(Coordonnee c) { 	// OK !
-		return(c.getLigne() > 0 && c.getColonne() > 0 && c.getLigne() <= this.taille && c.getColonne() <= this.taille);
+		return(c.getLigne() >= 0 && c.getColonne() >= 0 && c.getLigne() < this.taille && c.getColonne() < this.taille);
 	}
 	
 	private boolean estDansTirsRecus(Coordonnee c) {	// OK !
@@ -217,6 +217,10 @@ public class GrilleNavale {
 	
 	public Coordonnee[] getTableauTirsRecus() { // getter pour récuperer le tableau des tirsRecus
 		return (this.tirsRecus);
+	}
+	
+	public boolean getEstDansGrille(Coordonnee c) {
+		return(this.estDansGrille(c));
 	}
 	
 	
