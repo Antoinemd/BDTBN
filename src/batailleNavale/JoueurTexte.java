@@ -34,25 +34,17 @@ public class JoueurTexte extends Joueur {
 	}
 	
 	public void debutAttaque(){
+		Coordonnee c = new Coordonnee(0, 0);
 		System.out.println("A votre tour d'attaquer !" + this.getNom());
-		int li = 0;
-		int cl = 0;
 		do {
 			Scanner sc = new Scanner(System.in);
 			
-			System.out.println("Entrez une colonne : ");
-			String cls = sc.nextLine();		// Colonne String à saisir
-			cls = cls.toUpperCase();
-			
-			System.out.println("Entrez une ligne : ");
-			li = sc.nextInt();			// Ligne (int) à saisir (li)
-			char caractere = cls.charAt(0);	// on récupère le premier caractère de la string...
-			cl = (int)(caractere -'A'+ 1);    // pour le convertir en int (cl)
-			
-			if(cl < 1 || cl > super.getGrille().getTailleGrille())
-				System.out.println("Coordonnées invalides ! Recommencez ! \n");
-		} while(cl < 1 || cl > super.getGrille().getTailleGrille());
-		Coordonnee c = new Coordonnee(li, cl);	// on créé une nouvelle coordonnee de ligne li et colonne cl
+			System.out.println("Entrez une coordonnée : ");
+			try {
+				String coordonneeS = sc.nextLine();		// Coordonnée type A1
+				c = new Coordonnee(coordonneeS);	// on créé une nouvelle coordonnee de ligne li et colonne cl
+			} catch(IllegalArgumentException e) {System.out.println("Veuillez saisir une coordonnée valide !");}
+		} while(c.getColonne() < 1 || c.getColonne() > super.getGrille().getTailleGrille() || c.getLigne() < 1 || c.getLigne() > super.getGrille().getTailleGrille());
 		this.attaque(c);
 	}
 

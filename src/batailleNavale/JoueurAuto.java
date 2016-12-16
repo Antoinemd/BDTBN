@@ -29,10 +29,36 @@ public class JoueurAuto extends Joueur {
 	public void debutAttaque() {
 		System.out.println("A votre tour d'attaquer !" + this.getNom());
 		Coordonnee c = new Coordonnee(0, 0);
-			do {
-				c = new Coordonnee((int)(Math.random() * (super.getGrille().getTailleGrille())) + 1, (int)(Math.random() * (super.getGrille().getTailleGrille())) + 1);
-			} while(super.getGrilleAdversaire().getEstDansTirsRecus(c));
+		
+			// Premier Tir
+			//if (super.getGrilleAdversaire().getTableauTirsRecus().length < 1) {
+				do {
+					c = new Coordonnee((int)(Math.random() * (super.getGrille().getTailleGrille())) + 1, (int)(Math.random() * (super.getGrille().getTailleGrille())) + 1);
+				} while(super.getGrilleAdversaire().getEstDansTirsRecus(c));
 				this.attaque(c);
+			//}
+//			// Plus de 1 tir
+//			else if(super.getGrilleAdversaire().getTableauTirsRecus().length >= 1) {
+//				//! Tir
+//				for(int i = 0; i < super.getGrilleAdversaire().getTableauTirsRecus().length; i++) {
+//					if(super.getGrilleAdversaire().estTouche(super.getGrilleAdversaire().getTableauTirsRecus()[i])	// On cherche une coordonnée qui a touché un Navire
+//							&& !super.getGrilleAdversaire().estTouche(super.getGrilleAdversaire().getTableauTirsRecus()[i])) {	// Mais un navire qui n'est pas coulé
+//						do {
+//							;	// Si la ligne au dessus contient un navire touché, on tire à la ligne d'en dessous
+//							;	// Si la ligne en dessous contient un navire touché, on tire à la ligne au dessus
+//							;	// Si la colonne à gauche contient un navire touché, on tire sur la colonne à droite
+//							;	// Si la colonne à droite contient un navire touché, on tire sur la colonne à gauche
+//							;	// sinon on tire aléatoireent à une case près
+//						} while(super.getGrilleAdversaire().getEstDansTirsRecus(c));
+//					}
+//					else {	// Sinon, si on touche un navire coulé ou si on est à l'eau, on tire aléatoirement
+//						do {
+//							c = new Coordonnee((int)(Math.random() * (super.getGrille().getTailleGrille())) + 1, (int)(Math.random() * (super.getGrille().getTailleGrille())) + 1);
+//						} while(super.getGrilleAdversaire().getEstDansTirsRecus(c));
+//						this.attaque(c);
+//					}
+//				}	
+//			}
 	}
 
 	public static void main(String[] args) {
