@@ -32,7 +32,9 @@ public class Coordonnee {
         	s = s.toUpperCase();
         	char colonne = s.charAt(0);	// on récupère le premier caractère de la string...
 			this.colonne = (int)(colonne -'A');    // pour le convertir en int (cl)
-			this.ligne = Integer.parseInt(s.substring(1, 2));
+			try {
+				this.ligne = Integer.parseInt(s.substring(1, 2));
+			} catch(StringIndexOutOfBoundsException | NumberFormatException e) {System.out.println("Expression incorrecte !");}
         }
 
         public String toString() {
@@ -152,7 +154,7 @@ public class Coordonnee {
 //                System.out.println(Kris.PTContent() + "\n");
 //                
 //                
-                Coordonnee c = new Coordonnee(0, 0);
+                Coordonnee c = new Coordonnee("1D");
                 System.out.println(c);
                 
 

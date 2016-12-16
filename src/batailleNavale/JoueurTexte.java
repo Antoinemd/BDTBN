@@ -43,7 +43,8 @@ public class JoueurTexte extends Joueur {
 			try {
 				String coordonneeS = sc.nextLine();		// Coordonnée type A1
 				c = new Coordonnee(coordonneeS);	// on créé une nouvelle coordonnee de ligne li et colonne cl
-			} catch(IllegalArgumentException e) {System.out.println("Veuillez saisir une coordonnée valide !");}
+			} catch(IllegalArgumentException | StringIndexOutOfBoundsException e) {System.out.println("Veuillez saisir une coordonnée valide !");}
+			
 		} while(c.getColonne() < 0 || c.getColonne() > super.getGrille().getTailleGrille() || c.getLigne() < 0 || c.getLigne() > super.getGrille().getTailleGrille());
 		this.attaque(c);
 	}
