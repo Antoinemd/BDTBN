@@ -65,10 +65,10 @@ public class JoueurAuto extends Joueur {
 		
 
 		int[] tN = {2, 3, 3, 4, 5};
-		GrilleNavale g1 = new GrilleNavale(2, tN);
+		GrilleNavale g1 = new GrilleNavale(10, tN);
 		g1.placementAuto(tN);
 		
-		GrilleNavale g2 = new GrilleNavale(2, tN);
+		GrilleNavale g2 = new GrilleNavale(10, tN);
 		g2.placementAuto(tN);
 		
 		Joueur j1 = new JoueurTexte(g1, "Kris");
